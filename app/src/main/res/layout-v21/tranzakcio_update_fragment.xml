@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.TranzakcioAddFragment">
+
+    <Button
+        android:id="@+id/tranzakcioUpdateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Módosítás"
+        app:backgroundTint="@color/yellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.84" />
+
+    <EditText
+        android:id="@+id/osszegUpdateEditText"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:ems="10"
+        android:hint="Összeg"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="335dp" />
+
+    <Button
+        android:id="@+id/datumUpdateButton"
+        android:layout_width="56dp"
+        android:layout_height="45dp"
+        app:backgroundTint="@color/light_yellow"
+        app:icon="@drawable/ic_date"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/megjegyzesUpdateEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.183"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/osszegUpdateEditText"
+        app:layout_constraintVertical_bias="0.594"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/modositTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Tranzakció módosítása"
+        android:textAlignment="center"
+        android:textSize="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/megjegyzesUpdateEditText"
+        android:layout_width="280dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="32dp"
+        android:ems="10"
+        android:hint="Megjegyzés"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/tranzakcioUpdateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/datumUpdateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="68dp"
+        android:inputType="date"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/megjegyzesUpdateEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.207"
+        app:layout_constraintStart_toEndOf="@+id/datumUpdateButton"
+        app:layout_constraintTop_toBottomOf="@+id/osszegUpdateEditText"
+        app:layout_constraintVertical_bias="0.505"
+        tools:ignore="MissingConstraints,TextViewEdits" />
+
+    <Spinner
+        android:id="@+id/kategoriaUpdateSpinner"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintBottom_toTopOf="@+id/alKategoriSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modositTextView"
+        app:layout_constraintVertical_bias="0.694"
+        tools:ignore="UnknownIdInLayout" />
+
+    <Spinner
+        android:id="@+id/alKategoriaUpdateSpinner"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/osszegUpdateEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</RelativeLayout>

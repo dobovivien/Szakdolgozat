@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/home"
+        android:title="Kezdőlap"
+        android:icon="@drawable/ic_home" />
+
+    <item android:id="@+id/profile"
+        android:title="Profil"
+        android:icon="@drawable/ic_person" />
+
+    <item android:id="@+id/placeholder"
+        android:title="sad"
+        android:enabled="false"/>
+
+    <item android:id="@+id/settings"
+        android:title="Beállítások"
+        android:icon="@drawable/ic_settings" />
+
+    <item android:id="@+id/tranzakcioMenuButton"
+        android:title="Tranzakció"
+        android:icon="@drawable/ic_wallet" />
+
+</menu>

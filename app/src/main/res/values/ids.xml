@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="bottomNavView" type="id" />
+    <item name="bottomAppBar" type="id" />
+    <item name="hozzaadButton" type="id" />
+    <item name="kiadasHozzaadBuuton" type="id" />
+    <item name="kiadasText" type="id" />
+    <item name="bevetelText" type="id" />
+    <item name="bevetelHozzaadButton" type="id" />
+</resources>

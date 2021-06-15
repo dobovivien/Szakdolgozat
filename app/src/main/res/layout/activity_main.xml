@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/fragmentHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomAppBar"/>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomAppBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:fabAlignmentMode="end"
+        app:menu="@menu/bottom_nav_menu"
+        app:fabCradleMargin="10dp"/>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/hozzaadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/yellow"
+        android:clickable="true"
+        android:focusable="true"
+        android:tint="@color/white"
+        app:layout_anchor="@id/bottomAppBar"
+        app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/ic_add"
+        tools:ignore="VectorDrawableCompat" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/kiadasHozzaadBuuton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/light_yellow"
+        android:tint="@color/white"
+        android:visibility="invisible"
+        app:layout_anchor="@id/bevetelHozzaadButton"
+        app:layout_constraintBottom_toTopOf="@+id/bevetelHozzaadButton"
+        app:layout_constraintEnd_toEndOf="@+id/bevetelHozzaadButton"
+        app:srcCompat="@drawable/ic_kiad"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/kiadasText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:text="Kiadás"
+        android:textColor="#000000"
+        android:textSize="24dp"
+        android:title="Kiadás"
+        android:visibility="invisible"
+        app:layout_anchor="@id/kiadasHozzaadBuuton"
+        app:layout_constraintBottom_toTopOf="@+id/bevetelText"
+        app:layout_constraintEnd_toStartOf="@+id/kiadasHozzaadBuuton"
+        tools:ignore="MissingConstraints" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bevetelHozzaadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/light_yellow"
+        android:tint="@color/white"
+        android:visibility="invisible"
+        app:layout_anchor="@id/hozzaadButton"
+        app:layout_constraintBottom_toTopOf="@+id/hozzaadButton"
+        app:layout_constraintEnd_toEndOf="@+id/hozzaadButton"
+        app:srcCompat="@drawable/ic_bev"
+        tools:ignore="NotSibling,VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/bevetelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="165dp"
+        android:text="Bevétel"
+        android:textColor="#000000"
+        android:textSize="24dp"
+        android:visibility="invisible"
+        app:layout_anchor="@id/bevetelHozzaadButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bevetelHozzaadButton"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
