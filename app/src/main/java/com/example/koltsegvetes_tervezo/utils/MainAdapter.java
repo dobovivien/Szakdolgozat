@@ -75,7 +75,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.tranzListTextView.setText(String.valueOf(t.getOsszeg()));
         holder.kategoriaTextView.setText(String.valueOf(a.getAlKategoriaNev()));
         if (t.getKategoriaID() == 1) {
-            holder.tranzListTextView.setTextColor(R.color.yellow);
+            holder.tranzListTextView.setTextColor(R.color.turkiz2);
             holder.tranzListTextView.setText(s);
         }
         String strDate = "";

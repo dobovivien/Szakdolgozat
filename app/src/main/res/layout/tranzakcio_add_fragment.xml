@@ -6,7 +6,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,22 +16,27 @@
             android:id="@+id/tranzakcioAddButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="600dp"
             android:text="@string/add"
-            app:backgroundTint="@color/yellow"
+            app:backgroundTint="@color/turkiz2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.805" />
+            app:layout_constraintVertical_bias="0.805"
+            android:textSize="20dp"/>
 
         <EditText
             android:id="@+id/osszegEditText"
             android:layout_width="280dp"
             android:layout_height="60dp"
-            android:layout_marginTop="188dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="290dp"
             android:ems="10"
             android:hint="@string/amount"
             android:inputType="numberDecimal"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +46,10 @@
         <Button
             android:id="@+id/datumButton"
             android:layout_width="56dp"
-            android:layout_height="45dp"
-            app:backgroundTint="@color/light_yellow"
+            android:layout_height="60dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="370dp"
+            app:backgroundTint="@color/turkiz1"
             app:icon="@drawable/ic_date"
             app:iconTint="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/megjegyzesEditText"
@@ -56,23 +63,27 @@
             android:id="@+id/hozzaadTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
             android:text="@string/add_transaction"
             android:textAlignment="center"
             android:textSize="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            android:textColor="@color/white"/>
 
         <EditText
             android:id="@+id/megjegyzesEditText"
             android:layout_width="280dp"
             android:layout_height="54dp"
-            android:layout_marginBottom="96dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="450dp"
             android:ems="10"
             android:hint="@string/comment"
             android:inputType="text"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/tranzakcioAddButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -82,10 +93,13 @@
         <TextView
             android:id="@+id/datumTextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="68dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="370dp"
             android:inputType="date"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="24dp"
             app:layout_constraintBottom_toTopOf="@+id/megjegyzesEditText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -99,6 +113,10 @@
             android:id="@+id/kategoriaSpinner"
             android:layout_width="280dp"
             android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="130dp"
+            android:backgroundTint="#FF303030"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/alKategoriSpinner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -110,12 +128,16 @@
             android:id="@+id/alKategoriSpinner"
             android:layout_width="280dp"
             android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="210dp"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="#FF303030"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/osszegEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 </ScrollView>

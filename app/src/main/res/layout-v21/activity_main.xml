@@ -5,13 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main_layout"
     tools:context=".MainActivity">
-
-
+    
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/fragmentHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#292727"
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="120dp" />
 
@@ -20,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        app:backgroundTint="#403E3E"
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="15dp">
 
@@ -29,7 +31,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
             android:background="@android:color/transparent"
-            app:menu="@menu/bottom_nav_menu"/>
+            app:menu="@menu/bottom_nav_menu" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -40,7 +42,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
         android:tint="@color/yellow"
-        app:backgroundTint="@color/yellow"
+        app:backgroundTint="@color/turkiz3"
         app:layout_anchor="@id/bottomAppBar"
         app:rippleColor="@color/white"
         tools:ignore="ContentDescription" />

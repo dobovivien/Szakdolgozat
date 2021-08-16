@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setBackground(null);
 
+        View view = findViewById(R.id.main_layout);
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN);
+
         rotateOpen = AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim);
         rotateClose = AnimationUtils.loadAnimation(this, R.anim.rotate_close_anim);
         fromBottom = AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim);
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         hozzaadButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            viewPager.setCurrentItem(1);
+            viewPager.setCurrentItem(2);
             onAddButtonClicked();
         }
     });
@@ -82,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         BottomBarPagerAdapter bottomBarPagerAdapter = new BottomBarPagerAdapter(getSupportFragmentManager(), 1);
         viewPager = (ViewPager) findViewById(R.id.fragmentHolder);
         bottomBarPagerAdapter.AddFragment(homeFragment);
-        bottomBarPagerAdapter.AddFragment(tranzakcioAddFragment);
         bottomBarPagerAdapter.AddFragment(tranzakcioListFragment);
+        bottomBarPagerAdapter.AddFragment(tranzakcioAddFragment);
 
         viewPager.setAdapter(bottomBarPagerAdapter);
 
@@ -95,10 +98,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     case R.id.home:
                         viewPager.setCurrentItem(0);
                         return true;
-                    case R.id.placeholder:
+                    case R.id.tranzakcioMenuButton:
                         viewPager.setCurrentItem(1);
                         return true;
-                    case R.id.tranzakcioMenuButton:
+                    case R.id.placeholder:
                         viewPager.setCurrentItem(2);
                         return true;
                 }

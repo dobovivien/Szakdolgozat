@@ -9,4 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFC107</color>
     <color name="light_yellow">#FFDC75</color>
+    <color name="turkiz1">#01C2CA</color>
+    <color name="turkiz2">#018187</color>
+    <color name="turkiz3">#005559</color>
+    <color name="turkiz4">#002D2F</color>
+    <color name="puder1">#C89093</color>
+    <color name="puder2">#9D6A6D</color>
+    <color name="puder3">#6D494B</color>
 </resources>

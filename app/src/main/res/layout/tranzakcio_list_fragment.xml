@@ -14,11 +14,12 @@
         android:id="@+id/filterTextView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textSize="15dp"
-        android:padding="15dp"
+        android:drawablePadding="20dp"
         android:hint="@string/categories"
-        app:drawableEndCompat="@drawable/ic_down"
-        android:drawablePadding="20dp"/>
+        android:padding="15dp"
+        android:textColorHint="@color/white"
+        android:textSize="15dp"
+        app:drawableEndCompat="@drawable/ic_down" />
 
     <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler_view"

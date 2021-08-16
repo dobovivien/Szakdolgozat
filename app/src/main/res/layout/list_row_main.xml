@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp">
+    android:layout_margin="4dp"
+    android:backgroundTint="#FF303030">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
-            android:textSize="28sp"/>
+            android:textSize="28sp"
+            android:textColor="@color/white"/>
 
         <ImageView
             android:id="@+id/editImageView"
@@ -35,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_delete"/>
+            android:src="@drawable/ic_delete" />
 
     </LinearLayout>
 
@@ -53,15 +55,17 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="45dp"
             android:layout_weight="1"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="#878686"/>
 
         <TextView
             android:id="@+id/tranzakcioDatumListTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="65dp"
             android:layout_marginTop="45dp"
+            android:layout_marginEnd="65dp"
             android:layout_weight="1"
+            android:textColor="#878686"
             android:textSize="14sp" />
 
     </LinearLayout>

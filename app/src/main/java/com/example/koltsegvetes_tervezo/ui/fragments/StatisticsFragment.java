@@ -14,18 +14,18 @@ import android.view.ViewGroup;
 
 import com.example.koltsegvetes_tervezo.R;
 
-public class PersonFragment extends Fragment {
+public class StatisticsFragment extends Fragment {
 
     private PersonViewModel mViewModel;
 
-    public static PersonFragment newInstance() {
-        return new PersonFragment();
+    public static StatisticsFragment newInstance() {
+        return new StatisticsFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.person_fragment, container, false);
+        return inflater.inflate(R.layout.statisctics_fragment, container, false);
     }
 
     @Override

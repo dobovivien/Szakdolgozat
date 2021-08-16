@@ -38,9 +38,6 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View view = getView();
-        ((TextView)view.findViewById(R.id.text)).setText(mViewModel.getText());
-        TextView tv = view.findViewById(R.id.text);
-        tv.setText(mViewModel.getText());
 
     }
 

@@ -6,20 +6,22 @@
         android:title="Kezdőlap"
         android:icon="@drawable/ic_home" />
 
-    <item android:id="@+id/profile"
-        android:title="Profil"
-        android:icon="@drawable/ic_person" />
+    <item android:id="@+id/tranzakcioMenuButton"
+        android:title="Tranzakciók"
+        android:icon="@drawable/ic_wallet" />
 
     <item android:id="@+id/placeholder"
         android:title="sad"
         android:enabled="false"/>
 
+    <item android:id="@+id/statistics"
+        android:title="Statisztikák"
+        android:icon="@drawable/ic_bar_chart" />
+
     <item android:id="@+id/settings"
         android:title="Beállítások"
         android:icon="@drawable/ic_settings" />
 
-    <item android:id="@+id/tranzakcioMenuButton"
-        android:title="Tranzakció"
-        android:icon="@drawable/ic_wallet" />
+
 
 </menu>
