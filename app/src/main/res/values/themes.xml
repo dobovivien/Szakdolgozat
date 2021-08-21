@@ -6,8 +6,8 @@
         <item name="colorPrimaryVariant">@color/turkiz3</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/puder1</item>
-        <item name="colorSecondaryVariant">@color/puder2</item>
+        <item name="colorSecondary">@color/turkiz2</item>
+        <item name="colorSecondaryVariant">@color/turkiz3</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
@@ -15,7 +15,7 @@
     </style>
 
     <style name="Theme.Koltsegvetes_tervezo.NoActionBar">
-        <item name="windowActionBar">false</item>
+        <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
     </style>
 

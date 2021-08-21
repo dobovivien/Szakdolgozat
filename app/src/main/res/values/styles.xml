@@ -11,4 +11,14 @@
         <item name = "android:windowNoTitle">true</item>
     </style>
 
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/gray1</item>
+    </style>
+
+    <style name="DatePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/turkiz2</item>
+        <item name="colorPrimaryDark">@color/turkiz3</item>
+        <item name="colorAccent">@color/turkiz4</item>
+    </style>
+
 </resources>

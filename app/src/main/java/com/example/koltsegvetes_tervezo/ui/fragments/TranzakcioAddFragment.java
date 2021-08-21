@@ -140,8 +140,9 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
         Observer<ArrayList<String>> kategoriaObserver = new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> strings) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, strings);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireActivity(), R.layout.spinner_color_layout, strings);
                 kategoriaSpinner.setAdapter(adapter);
+                adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
 
             }
         };
@@ -150,8 +151,9 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
         Observer<ArrayList<String>> alKategoriaObserver = new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> strings) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, strings);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireActivity(), R.layout.spinner_color_layout, strings);
                 alKategoriaSpinner.setAdapter(adapter);
+                adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
 
             }
         };

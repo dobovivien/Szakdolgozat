@@ -16,4 +16,8 @@
     <color name="puder1">#C89093</color>
     <color name="puder2">#9D6A6D</color>
     <color name="puder3">#6D494B</color>
+    <color name="grayBg">#403E3E</color>
+    <color name="gray1">#616161</color>
+    <color name="gray2">#FF303030</color>
+    <color name="gray3">#878686</color>
 </resources>

@@ -87,7 +87,7 @@ public class TranzakcioListFragment extends Fragment {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
                 builder.setTitle("Kategóriák szűrése");
                 builder.setCancelable(false);
 
@@ -103,7 +103,7 @@ public class TranzakcioListFragment extends Fragment {
                     }
                 });
 
-                builder.setPositiveButton("Kiválaszt", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Kiválaszt", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
                         tranzakciok.clear();
