@@ -34,16 +34,16 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="130dp"
             android:backgroundTint="@color/gray2"
-            android:popupBackground="@color/gray1"
             android:dropDownWidth="match_parent"
+            android:popupBackground="#838383"
             android:textColor="@color/gray3"
+            android:textSize="20dp"
             app:layout_constraintBottom_toTopOf="@+id/alKategoriSpinner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hozzaadTextView"
-            app:layout_constraintVertical_bias="0.647"
-            android:textSize="20dp"/>
+            app:layout_constraintVertical_bias="0.647" />
 
         <Spinner
             android:id="@+id/alKategoriSpinner"
@@ -105,7 +105,7 @@
             android:layout_marginTop="385dp"
             android:inputType="date"
             android:textAlignment="center"
-            android:textColor="@color/gray3"
+            android:textColor="@color/white"
             android:textSize="20dp"
             app:layout_constraintBottom_toTopOf="@+id/megjegyzesEditText"
             app:layout_constraintEnd_toEndOf="parent"

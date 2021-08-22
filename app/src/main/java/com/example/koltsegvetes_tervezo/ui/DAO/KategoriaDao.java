@@ -20,6 +20,9 @@ public interface KategoriaDao {
     @Query("SELECT * FROM Kategoria WHERE KategoriaNev = :name LIMIT 1")
     Kategoria getKategoriaByName(String name);
 
+    @Query("SELECT KategoriaNev FROM Kategoria WHERE ID = :id LIMIT 1")
+    String getKategoriaNameByID(int id);
+
     @Insert(onConflict = REPLACE)
     void insert (Kategoria kategoria);
 }

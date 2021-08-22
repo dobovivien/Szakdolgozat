@@ -23,6 +23,12 @@ public interface AlKategoriaDao {
     @Query("SELECT * FROM AlKategoria WHERE ID = :id LIMIT 1")
     AlKategoria getAlkategoriaById(int id);
 
+    @Query("SELECT * FROM AlKategoria WHERE KategoriaID = :id")
+    List<AlKategoria> getAlkategoriaByKategoriaId(int id);
+
+    @Query("SELECT AlKategoriaNev FROM AlKategoria WHERE KategoriaID = :id ORDER BY ID")
+    List<String> getAllAlkategoriaNameByID(int id);
+
     @Insert(onConflict = REPLACE)
     void insert (AlKategoria alKategoria);
 }

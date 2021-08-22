@@ -12,7 +12,7 @@
         android:id="@+id/fragmentHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#292727"
+        android:background="@color/grayBg"
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="120dp" />
 
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:backgroundTint="@color/grayBg"
+        app:backgroundTint="@color/gray2"
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="15dp">
 
@@ -35,64 +35,15 @@
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/hozzaadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
         android:tint="@color/yellow"
-        app:backgroundTint="@color/turkiz3"
+        app:backgroundTint="@color/turkiz1"
         app:layout_anchor="@id/bottomAppBar"
         app:rippleColor="@color/white"
         tools:ignore="ContentDescription" />
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/topMenuButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:fab_size="normal"-->
-<!--        android:src="@drawable/ic_menu"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:layout_marginRight="16dp"-->
-<!--        android:layout_gravity="right"-->
-<!--        app:backgroundTint="@color/yellow"/>-->
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/celokButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:fab_size="normal"-->
-<!--        android:visibility="invisible"-->
-<!--        android:src="@drawable/ic_goals"-->
-<!--        android:layout_marginTop="90dp"-->
-<!--        android:layout_marginRight="16dp"-->
-<!--        android:layout_gravity="right"-->
-<!--        app:backgroundTint="@color/light_yellow"/>-->
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/statisztikaButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:fab_size="normal"-->
-<!--        android:visibility="invisible"-->
-<!--        android:src="@drawable/ic_chart"-->
-<!--        android:layout_marginTop="164dp"-->
-<!--        android:layout_marginRight="16dp"-->
-<!--        android:layout_gravity="right"-->
-<!--        app:backgroundTint="@color/light_yellow"/>-->
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/sporolasButon"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:fab_size="normal"-->
-<!--        android:visibility="invisible"-->
-<!--        android:src="@drawable/ic_money"-->
-<!--        android:layout_marginTop="238dp"-->
-<!--        android:layout_marginRight="16dp"-->
-<!--        android:layout_gravity="right"-->
-<!--        app:backgroundTint="@color/light_yellow"/>-->
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

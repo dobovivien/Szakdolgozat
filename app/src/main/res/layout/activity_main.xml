@@ -11,7 +11,7 @@
         android:id="@+id/fragmentHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grayBg"
+        android:background="@color/gray1"
         app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/turkiz3"
+        android:backgroundTint="@color/turkiz1"
         android:clickable="true"
         android:focusable="true"
         android:tint="@color/white"

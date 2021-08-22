@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -20,13 +20,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.koltsegvetes_tervezo.CustomAdapter;
+import com.example.koltsegvetes_tervezo.CustomItem;
 import com.example.koltsegvetes_tervezo.R;
-import com.example.koltsegvetes_tervezo.ui.entities.AlKategoria;
+import com.example.koltsegvetes_tervezo.ResourceHandler;
 import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
-import com.example.koltsegvetes_tervezo.ui.entities.Kategoria;
 import com.example.koltsegvetes_tervezo.ui.entities.Tranzakcio;
-import com.example.koltsegvetes_tervezo.utils.MainAdapter;
-
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -47,11 +46,12 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
     Button tranzakcioHozzaadButton;
     List<Tranzakcio> tranzakcioList = new ArrayList<Tranzakcio>();
     AppDatabase database;
-    MainAdapter mainAdapter;
     Spinner kategoriaSpinner;
     Spinner alKategoriaSpinner;
-    MutableLiveData<ArrayList<String>> kategoriaList = new MutableLiveData<ArrayList<String>>();
-    MutableLiveData<ArrayList<String>> alKategoriaList = new MutableLiveData<ArrayList<String>>();
+    ArrayList<CustomItem> kategoriaCustomList;
+    ArrayList<CustomItem> alKategoriaCustomList;
+    MutableLiveData<ArrayList<CustomItem>> kategoriaImg = new MutableLiveData<ArrayList<CustomItem>>();
+    MutableLiveData<ArrayList<CustomItem>> alKategoriaImg = new MutableLiveData<ArrayList<CustomItem>>();
 
     public static TranzakcioAddFragment newInstance() {
         return new TranzakcioAddFragment();
@@ -59,7 +59,6 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
 
     public TranzakcioAddFragment() {
         super(R.layout.tranzakcio_add_fragment);
-        //database = AppDatabase.getInstance(get)
     }
 
     @Override
@@ -72,8 +71,6 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.tranzakcio_add_fragment, container, false);
     }
-
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -91,6 +88,11 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
         megjegyzesEditText = view.findViewById(R.id.megjegyzesEditText);
         kategoriaSpinner = view.findViewById(R.id.kategoriaSpinner);
         alKategoriaSpinner = view.findViewById(R.id.alKategoriSpinner);
+        alKategoriaSpinner = view.findViewById(R.id.alKategoriSpinner);
+        alKategoriaSpinner.setEnabled(false);
+
+        kategoriaCustomList = getKategoriaCustomList();
+        CustomAdapter customAdapter = new CustomAdapter(this.requireActivity(), kategoriaCustomList);
 
         datumButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,14 +106,16 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
             @Override
             public void onClick(View v) {
                 if (CheckAllFields()) {
-                    String kategoria = kategoriaSpinner.getSelectedItem().toString();
-                    String alkategoria = alKategoriaSpinner.getSelectedItem().toString();
+                    String kategoria = ((CustomItem) kategoriaSpinner.getSelectedItem()).getSpinnerItemName();
+                    String alkategoria = ((CustomItem) alKategoriaSpinner.getSelectedItem()).getSpinnerItemName();
                     int ossz = Integer.parseInt(osszegEditText.getText().toString());
                     String megj = megjegyzesEditText.getText().toString().trim();
 
                     Tranzakcio t = new Tranzakcio();
                     t.setKategoriaID(database.kategoriaDao().getKategoriaByName(kategoria).getID());
+                    System.out.println("-----------------kat" + database.kategoriaDao().getKategoriaByName(kategoria).getID());
                     t.setAlKategoriaID(database.alKategoriaDao().getAlKategoriaByName(alkategoria).getID());
+                    System.out.println("-----------------alkat" + database.alKategoriaDao().getAlKategoriaByName(alkategoria).getID());
                     t.setOsszeg(ossz);
                     t.setMegjegyzes(megj);
                     DateFormat dateFormat = SimpleDateFormat.getDateInstance();
@@ -133,52 +137,81 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
             }
         });
 
+        kategoriaImg.setValue(getKategoriaCustomList());
 
-        kategoriaList.setValue(getKategoriaSpinner());
-        alKategoriaList.setValue(getAlKategoriaSpinner());
-
-        Observer<ArrayList<String>> kategoriaObserver = new Observer<ArrayList<String>>() {
+        Observer<ArrayList<CustomItem>> kategoriaObserver = new Observer<ArrayList<CustomItem>>() {
             @Override
-            public void onChanged(ArrayList<String> strings) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireActivity(), R.layout.spinner_color_layout, strings);
-                kategoriaSpinner.setAdapter(adapter);
-                adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+            public void onChanged(ArrayList<CustomItem> items) {
+                CustomAdapter customAdapter = new CustomAdapter(requireActivity(), items);
+                kategoriaSpinner.setAdapter(customAdapter);
+                kategoriaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        CustomItem item = (CustomItem) parent.getSelectedItem();
+                        alKategoriaImg.setValue(getAlKategoriaCustomList());
+                        alKategoriaSpinner.setEnabled(true);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+                customAdapter.setDropDownViewResource(R.layout.custom_dropdown_layout);
 
             }
         };
-        kategoriaList.observe(getViewLifecycleOwner(), kategoriaObserver);
+        kategoriaImg.observe(getViewLifecycleOwner(), kategoriaObserver);
 
-        Observer<ArrayList<String>> alKategoriaObserver = new Observer<ArrayList<String>>() {
+        Observer<ArrayList<CustomItem>> alKategoriaObserver = new Observer<ArrayList<CustomItem>>() {
             @Override
-            public void onChanged(ArrayList<String> strings) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireActivity(), R.layout.spinner_color_layout, strings);
-                alKategoriaSpinner.setAdapter(adapter);
-                adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+            public void onChanged(ArrayList<CustomItem> items) {
+                CustomAdapter customAdapter = new CustomAdapter(requireActivity(), items);
+                alKategoriaSpinner.setAdapter(customAdapter);
+                customAdapter.setDropDownViewResource(R.layout.custom_dropdown_layout);
 
             }
         };
-        alKategoriaList.observe(getViewLifecycleOwner(), alKategoriaObserver);
+        alKategoriaImg.observe(getViewLifecycleOwner(), alKategoriaObserver);
     }
 
-    public ArrayList<String> getKategoriaSpinner() {
-        List<Kategoria> kategoria = database.kategoriaDao().getAll();
-        ArrayList<String> kategoriaString = new ArrayList<String>();
-        for (Kategoria k : kategoria) {
-            kategoriaString.add(k.getKategoriaNev());
+    private ArrayList<CustomItem> getKategoriaCustomList() {
+        kategoriaCustomList = new ArrayList<CustomItem>();
+        kategoriaCustomList.add(new CustomItem(database.kategoriaDao().getKategoriaNameByID(1), R.drawable.ic_bevetel));
+        kategoriaCustomList.add(new CustomItem(database.kategoriaDao().getKategoriaNameByID(2), R.drawable.ic_kiadas));
+        return kategoriaCustomList;
+    }
+
+    private ArrayList<CustomItem> getAlKategoriaCustomList() {
+        alKategoriaCustomList = new ArrayList<>();
+        String s = ((CustomItem) kategoriaSpinner.getSelectedItem()).getSpinnerItemName();
+        int katID = database.kategoriaDao().getKategoriaByName(s).getID();
+        List<String> alkList = database.alKategoriaDao().getAllAlkategoriaNameByID(katID);
+        for (String str : alkList) {
+            alKategoriaCustomList.add(new CustomItem(str, ResourceHandler.getResourceID(str)));
         }
-        return kategoriaString;
+        return alKategoriaCustomList;
     }
 
-    public ArrayList<String> getAlKategoriaSpinner() {
-        List<AlKategoria> alKategoria = database.alKategoriaDao().getAll();
-        ArrayList<String> kategoriaString = new ArrayList<String>();
-        for (AlKategoria k : alKategoria) {
-            kategoriaString.add(k.getAlKategoriaNev());
-        }
-        return kategoriaString;
-    }
-
-
+//    public ArrayList<String> getKategoriaSpinner() {
+//        List<Kategoria> kategoria = database.kategoriaDao().getAll();
+//        ArrayList<String> kategoriaString = new ArrayList<String>();
+//        for (Kategoria k : kategoria) {
+//            kategoriaString.add(k.getKategoriaNev());
+//        }
+//        return kategoriaString;
+//    }
+//
+//    public ArrayList<String> getAlKategoriaSpinner() {
+//        String s = kategoriaSpinner.getSelectedItem().toString();
+//        int i = database.kategoriaDao().getKategoriaByName(s).getID();
+//        List<AlKategoria> alKategoria = database.alKategoriaDao().getAlkategoriaByKategoriaId(i);
+//        ArrayList<String> alKategoriaString = new ArrayList<String>();
+//        for (AlKategoria k : alKategoria) {
+//            alKategoriaString.add(k.getAlKategoriaNev());
+//        }
+//        return alKategoriaString;
+//    }
 
     @Override
     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
