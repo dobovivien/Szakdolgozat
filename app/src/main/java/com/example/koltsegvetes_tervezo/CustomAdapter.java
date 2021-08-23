@@ -50,4 +50,18 @@ public class CustomAdapter extends ArrayAdapter {
         }
         return convertView;
     }
+
+    @Override
+    public int getPosition(@Nullable Object item) {
+        return super.getPosition(item);
+    }
+
+    public int getIndex (String s) {
+        for (int i = 0; i < getCount(); i++) {
+            if (((CustomItem) getItem(i)).getSpinnerItemName().equals(s)) {
+                return i;
+            }
+        }
+        return 0;
+    }
 }

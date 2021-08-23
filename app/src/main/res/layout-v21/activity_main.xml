@@ -12,7 +12,7 @@
         android:id="@+id/fragmentHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grayBg"
+        android:background="@color/gray1"
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="120dp" />
 
@@ -40,7 +40,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
-        android:tint="@color/yellow"
         app:backgroundTint="@color/turkiz1"
         app:layout_anchor="@id/bottomAppBar"
         app:rippleColor="@color/white"

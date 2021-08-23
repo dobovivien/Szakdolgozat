@@ -24,7 +24,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints"
             android:textColor="@color/white"/>
 
         <Spinner
@@ -34,7 +33,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="130dp"
             android:backgroundTint="@color/gray2"
-            android:dropDownWidth="match_parent"
+            android:dropDownWidth="280dp"
             android:popupBackground="@color/gray3"
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/alKategoriSpinner"
@@ -53,7 +52,7 @@
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/gray2"
             android:popupBackground="@color/gray3"
-            android:dropDownWidth="match_parent"
+            android:dropDownWidth="280dp"
             android:textColor="@color/white"
             android:textSize="20dp"
             app:layout_constraintBottom_toTopOf="@+id/osszegEditText"
@@ -75,31 +74,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hozzaadTextView"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintTop_toBottomOf="@+id/hozzaadTextView" />
 
         <Button
             android:id="@+id/datumButton"
-            android:layout_width="56dp"
+            android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="70dp"
             android:layout_marginTop="370dp"
             app:backgroundTint="@color/turkiz1"
-            app:icon="@drawable/ic_date"
-            app:iconTint="@color/white"
+            app:icon="@drawable/ic_calendar"
             app:layout_constraintBottom_toTopOf="@+id/megjegyzesEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.183"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/osszegEditText"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintTop_toBottomOf="@+id/osszegEditText" />
 
         <TextView
             android:id="@+id/datumTextView"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="385dp"
             android:inputType="date"
             android:textAlignment="center"
@@ -110,13 +106,12 @@
             app:layout_constraintHorizontal_bias="0.225"
             app:layout_constraintStart_toEndOf="@+id/datumButton"
             app:layout_constraintTop_toBottomOf="@+id/osszegEditText"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <EditText
             android:id="@+id/megjegyzesEditText"
             android:layout_width="280dp"
-            android:layout_height="54dp"
+            android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="450dp"
             android:ems="10"
@@ -127,8 +122,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tranzakcioAddButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/tranzakcioAddButton"

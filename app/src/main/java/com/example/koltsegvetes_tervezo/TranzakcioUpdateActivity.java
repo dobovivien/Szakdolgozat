@@ -1,15 +1,14 @@
 package com.example.koltsegvetes_tervezo;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,18 +17,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.koltsegvetes_tervezo.ui.entities.AlKategoria;
 import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
-import com.example.koltsegvetes_tervezo.ui.entities.Kategoria;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Dictionary;
 import java.util.List;
 
 public class TranzakcioUpdateActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -43,8 +38,8 @@ public class TranzakcioUpdateActivity extends AppCompatActivity implements DateP
 
     int id;
     int osszeg;
-    String kategoria;
-    String alKategoria;
+    CustomItem kategoria;
+    CustomItem alKategoria;
     String megjegyzes;
     String date;
 
@@ -55,11 +50,14 @@ public class TranzakcioUpdateActivity extends AppCompatActivity implements DateP
     TextView datumTextView;
     EditText megjegyzesEditText;
 
+    ArrayList<CustomItem> kategoriaCustomList;
+    ArrayList<CustomItem> alKategoriaCustomList;
+
     ArrayAdapter<String> kategoriaAdapter;
     ArrayAdapter<String> alKategoriaAdapter;
 
-    MutableLiveData<ArrayList<String>> kategoriaList = new MutableLiveData<ArrayList<String>>();
-    MutableLiveData<ArrayList<String>> alKategoriaList = new MutableLiveData<ArrayList<String>>();
+    MutableLiveData<ArrayList<CustomItem>> kategoriaList = new MutableLiveData<ArrayList<CustomItem>>();
+    MutableLiveData<ArrayList<CustomItem>> alKategoriaList = new MutableLiveData<ArrayList<CustomItem>>();
 
     @SuppressLint("SimpleDateFormat")
     @Override
@@ -68,14 +66,12 @@ public class TranzakcioUpdateActivity extends AppCompatActivity implements DateP
         setContentView(R.layout.activity_tranzakcio_update);
 
         database = AppDatabase.getInstance(this);
-
         osszegEditText = findViewById(R.id.osszegUpdateEditText);
         kategoriaSpinner = findViewById(R.id.kategoriaUpdateSpinner);
         alKategoriaSpinner = findViewById(R.id.alKategoriaUpdateSpinner);
         datumButton = findViewById(R.id.datumUpdateButton);
         datumTextView = findViewById(R.id.datumUpdateTextView);
         megjegyzesEditText = findViewById(R.id.megjegyzesUpdateEditText);
-
 
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -99,75 +95,112 @@ public class TranzakcioUpdateActivity extends AppCompatActivity implements DateP
         });
 
         Bundle b = getIntent().getExtras();
-        int kategoriaID = 0;
-        int alKategoriaID = 0;
+        String kategoriaNev = "";
+        String alKategoriaNev = "";
         if(b != null) {
             id = b.getInt("id");
             osszeg = b.getInt("osszeg");
-            kategoriaID = b.getInt("kategoria");
-            alKategoriaID = b.getInt("alkategoria");
+            kategoriaNev = b.getString("kategoria");
+            alKategoriaNev = b.getString("alkategoria");
             megjegyzes = b.getString("megjegyzes");
             date = b.getString("datum");
         }
 
         osszegEditText.setText(String.valueOf(osszeg));
-        kategoriaSpinner.setSelection(kategoriaID);
-        alKategoriaSpinner.setSelection(alKategoriaID);
         megjegyzesEditText.setText(megjegyzes);
         datumTextView.setText(convert(date));
-        kategoriaList.setValue(getKategoriaSpinner());
-        alKategoriaList.setValue(getAlKategoriaSpinner());
+        kategoriaList.setValue(getKategoriaCustomList());
+        alKategoriaList.setValue(getAlKategoriaCustomList());
 
-        kategoriaAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, kategoriaList.getValue());
-        kategoriaSpinner.setAdapter(kategoriaAdapter);
-        Observer<ArrayList<String>> kategoriaObserver = new Observer<ArrayList<String>>() {
+        //kategoriaAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, kategoriaList.getValue());
+//        Observer<ArrayList<CustomItem>> kategoriaObserver = new Observer<ArrayList<CustomItem>>() {
+//            @Override
+//            public void onChanged(ArrayList<CustomItem> items) {
+//                for (CustomItem i:items) {
+//                    if (customKategoriaAdapter.getPosition(i) < 0) {
+//                        customKategoriaAdapter.add(i);
+//                    }
+//                }
+//                kategoriaSpinner.setAdapter(customKategoriaAdapter);
+//                kategoriaSpinner.setSelection(customKategoriaAdapter.getPosition(kategoria));
+//                customKategoriaAdapter.setDropDownViewResource(R.layout.custom_dropdown_layout);
+//            }
+//        };
+//
+//        kategoriaList.observe(this, kategoriaObserver);
+//
+//        //alKategoriaAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, alKategoriaList.getValue());
+//        Observer<ArrayList<CustomItem>> alKategoriaObserver = new Observer<ArrayList<CustomItem>>() {
+//            @Override
+//            public void onChanged(ArrayList<CustomItem> items) {
+//                for (CustomItem i:items) {
+//                    if (customAlKategoriaAdapter.getPosition(i) < 0) {
+//                        customAlKategoriaAdapter.add(i);
+//                    }
+//                }
+//                alKategoriaSpinner.setAdapter(customAlKategoriaAdapter);
+//                customAlKategoriaAdapter.setDropDownViewResource(R.layout.custom_dropdown_layout);
+//            }
+//        };
+//        alKategoriaList.observe(this, alKategoriaObserver);
+        //alKategoriaSpinner.setSelection(customAlKategoriaAdapter.getPosition(alKategoria));
+
+        String finalKategoriaNev = kategoriaNev;
+        Observer<ArrayList<CustomItem>> kategoriaObserver = new Observer<ArrayList<CustomItem>>() {
             @Override
-            public void onChanged(ArrayList<String> strings) {
-                for (String str:strings) {
-                    if (kategoriaAdapter.getPosition(str) < 0) {
-                        kategoriaAdapter.add(str);
+            public void onChanged(ArrayList<CustomItem> items) {
+                CustomAdapter customKategoriaAdapter = new CustomAdapter(getBaseContext(), kategoriaCustomList);
+                kategoriaSpinner.setAdapter(customKategoriaAdapter);
+                kategoriaSpinner.setSelection(customKategoriaAdapter.getIndex(finalKategoriaNev));
+                kategoriaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        CustomItem item = (CustomItem) parent.getSelectedItem();
+                        alKategoriaList.setValue(getAlKategoriaCustomList());
                     }
-                }
-                kategoriaSpinner.setAdapter(kategoriaAdapter);
-                kategoriaSpinner.setSelection(kategoriaAdapter.getPosition(kategoria));
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+                customKategoriaAdapter.setDropDownViewResource(R.layout.custom_dropdown_layout);
             }
         };
-
         kategoriaList.observe(this, kategoriaObserver);
 
-        alKategoriaAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, alKategoriaList.getValue());
-        Observer<ArrayList<String>> alKategoriaObserver = new Observer<ArrayList<String>>() {
+        String finalAlKategoriaNev = alKategoriaNev;
+        Observer<ArrayList<CustomItem>> alKategoriaObserver = new Observer<ArrayList<CustomItem>>() {
             @Override
-            public void onChanged(ArrayList<String> strings) {
-                for (String str:strings) {
-                    if (alKategoriaAdapter.getPosition(str) < 0) {
-                        alKategoriaAdapter.add(str);
-                    }
-                }
-                alKategoriaSpinner.setAdapter(alKategoriaAdapter);
+            public void onChanged(ArrayList<CustomItem> items) {
+                CustomAdapter customAlKategoriaAdapter = new CustomAdapter(getBaseContext(), alKategoriaCustomList);
+                alKategoriaSpinner.setAdapter(customAlKategoriaAdapter);
+                alKategoriaSpinner.setSelection(customAlKategoriaAdapter.getIndex(finalAlKategoriaNev));
+                customAlKategoriaAdapter.setDropDownViewResource(R.layout.custom_dropdown_layout);
             }
         };
         alKategoriaList.observe(this, alKategoriaObserver);
-        alKategoriaSpinner.setAdapter(alKategoriaAdapter);
-        alKategoriaSpinner.setSelection(alKategoriaAdapter.getPosition(alKategoria));
     }
 
-    public ArrayList<String> getKategoriaSpinner() {
-        List<Kategoria> kategoria = database.kategoriaDao().getAll();
-        ArrayList<String> kategoriaString = new ArrayList<String>();
-        for (Kategoria k : kategoria) {
-            kategoriaString.add(k.getKategoriaNev());
-        }
-        return kategoriaString;
+    private ArrayList<CustomItem> getKategoriaCustomList() {
+        kategoriaCustomList = new ArrayList<>();
+        kategoriaCustomList.add(new CustomItem(database.kategoriaDao().getKategoriaNameByID(1), R.drawable.ic_bevetel));
+        kategoriaCustomList.add(new CustomItem(database.kategoriaDao().getKategoriaNameByID(2), R.drawable.ic_kiadas));
+        return kategoriaCustomList;
     }
 
-    public ArrayList<String> getAlKategoriaSpinner() {
-        List<AlKategoria> alKategoria = database.alKategoriaDao().getAll();
-        ArrayList<String> kategoriaString = new ArrayList<String>();
-        for (AlKategoria k : alKategoria) {
-            kategoriaString.add(k.getAlKategoriaNev());
+    private ArrayList<CustomItem> getAlKategoriaCustomList() {
+        alKategoriaCustomList = new ArrayList<>();
+        if (kategoriaSpinner.getSelectedItem() == null) {
+            return alKategoriaCustomList;
         }
-        return kategoriaString;
+        String s = ((CustomItem) kategoriaSpinner.getSelectedItem()).getSpinnerItemName();
+        int katID = database.kategoriaDao().getKategoriaByName(s).getID();
+        List<String> alkList = database.alKategoriaDao().getAllAlkategoriaNameByID(katID);
+        for (String str : alkList) {
+            alKategoriaCustomList.add(new CustomItem(str, ResourceHandler.getResourceID(str)));
+        }
+        return alKategoriaCustomList;
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -184,11 +217,11 @@ public class TranzakcioUpdateActivity extends AppCompatActivity implements DateP
 
             osszeg = Integer.parseInt(osszegEditText.getText().toString());
             megjegyzes = megjegyzesEditText.getText().toString();
-            kategoria = kategoriaSpinner.getSelectedItem().toString();
-            alKategoria = alKategoriaSpinner.getSelectedItem().toString();
+            kategoria = (CustomItem) kategoriaSpinner.getSelectedItem();
+            alKategoria = (CustomItem) alKategoriaSpinner.getSelectedItem();
 
             java.sql.Date sDate = new java.sql.Date(d.getTime());
-            database.tranzakcioDao().update(id, database.kategoriaDao().getKategoriaByName(kategoria).getID(), database.alKategoriaDao().getAlKategoriaByName(alKategoria).getID(), osszeg, sDate, megjegyzes);
+            database.tranzakcioDao().update(id, database.kategoriaDao().getKategoriaByName(kategoria.getSpinnerItemName()).getID(), database.alKategoriaDao().getAlKategoriaByName(alKategoria.getSpinnerItemName()).getID(), osszeg, sDate, megjegyzes);
             finish();
             Toast.makeText(this, "Tranzakció módosítva!", Toast.LENGTH_SHORT).show();
         }

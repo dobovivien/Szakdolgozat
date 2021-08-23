@@ -6,88 +6,94 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/gray1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="-1dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="1dp"
             android:text="@string/edit_transaction"
             android:textAlignment="center"
-            android:textSize="30sp" />
+            android:textColor="@color/white"
+            android:textSize="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/kategoriaUpdateSpinner"
+            android:layout_width="280dp"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="130dp"
+            android:layout_marginEnd="50dp"
+            android:textSize="20dp"/>
+
+        <Spinner
+            android:id="@+id/alKategoriaUpdateSpinner"
+            android:layout_width="280dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="210dp"
+            android:layout_marginEnd="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="20dp"/>
 
         <EditText
             android:id="@+id/osszegUpdateEditText"
             android:hint="@string/amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_width="280dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="290dp"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:inputType="number"/>
-
-        <Spinner
-            android:id="@+id/kategoriaUpdateSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="230dp"
-            android:layout_marginEnd="50dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
-
-        <Spinner
-            android:id="@+id/alKategoriaUpdateSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="300dp"
-            android:layout_marginEnd="50dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+            android:inputType="number"
+            android:textSize="20dp"/>
 
         <Button
             android:id="@+id/datumUpdateButton"
             android:layout_width="60dp"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="50dp"
             android:layout_marginTop="370dp"
-            android:layout_marginEnd="309dp"
+            android:layout_marginEnd="300dp"
             android:inputType="textPersonName"
-            app:backgroundTint="@color/light_yellow"
-            app:icon="@drawable/ic_date"
-            app:iconTint="@color/white" />
+            app:backgroundTint="@color/turkiz1"
+            app:icon="@drawable/ic_calendar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.183"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/datumUpdateTextView"
-            android:layout_width="220dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
             android:layout_marginStart="130dp"
-            android:layout_marginTop="370dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginTop="385dp"
             android:textAlignment="center"
             android:textSize="24dp" />
 
         <EditText
             android:id="@+id/megjegyzesUpdateEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="280dp"
+            android:layout_height="60dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="50dp"
             android:layout_marginTop="450dp"
             android:layout_marginEnd="50dp"
             android:hint="@string/description"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:textSize="20dp"/>
 
         <Button
             android:id="@+id/hozzaadButton"
@@ -95,25 +101,29 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="600dp"
-            android:layout_marginEnd="196dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="1200dp"
+            android:layout_marginEnd="200dp"
             android:onClick="edit"
             android:text="@string/edit"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="20dp"/>
 
         <Button
             android:id="@+id/addCancel"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:onClick="cancel"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="242dp"
             android:layout_marginTop="600dp"
             android:layout_marginEnd="50dp"
+            android:onClick="cancel"
             android:text="@string/cancel"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="20dp"/>
 
     </RelativeLayout>
+
 </ScrollView>

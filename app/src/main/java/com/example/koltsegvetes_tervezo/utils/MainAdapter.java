@@ -75,7 +75,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.tranzListTextView.setText(String.valueOf(t.getOsszeg()));
         holder.kategoriaTextView.setText(String.valueOf(a.getAlKategoriaNev()));
         if (t.getKategoriaID() == 1) {
-            holder.tranzListTextView.setTextColor(R.color.turkiz2);
+            holder.tranzListTextView.setTextColor(R.color.turkiz1);
             holder.tranzListTextView.setText(s);
         }
         String strDate = "";
@@ -128,8 +128,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 Bundle b = new Bundle();
                 b.putInt("id", t.getID());
                 b.putInt("osszeg", t.getOsszeg());
-                b.putInt("kategoria", t.getKategoriaID());
-                b.putInt("alkategoria", t.getAlKategoriaID());
+                b.putString("kategoria", database.kategoriaDao().getKategoriaNameByID(t.getKategoriaID()));
+                b.putString("alkategoria", database.alKategoriaDao().getAlkategoriaById(t.getAlKategoriaID()).getAlKategoriaNev());
                 b.putString("datum", t.getDatum().toString());
                 b.putString("megjegyzes", t.getMegjegyzes());
                 intent.putExtras(b);

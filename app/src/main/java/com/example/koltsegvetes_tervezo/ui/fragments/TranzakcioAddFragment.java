@@ -78,8 +78,6 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
         mViewModel = new ViewModelProvider(this).get(TranzakcioAddViewModel.class);
 
         database = AppDatabase.getInstance(requireActivity().getApplication());
-
-        //Initialize variables
         view = getView();
         datumButton = view.findViewById(R.id.datumButton);
         tranzakcioHozzaadButton = view.findViewById(R.id.tranzakcioAddButton);
@@ -92,7 +90,7 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
         alKategoriaSpinner.setEnabled(false);
 
         kategoriaCustomList = getKategoriaCustomList();
-        CustomAdapter customAdapter = new CustomAdapter(this.requireActivity(), kategoriaCustomList);
+        //CustomAdapter customAdapter = new CustomAdapter(this.requireActivity(), kategoriaCustomList);
 
         datumButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +111,7 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
 
                     Tranzakcio t = new Tranzakcio();
                     t.setKategoriaID(database.kategoriaDao().getKategoriaByName(kategoria).getID());
-                    System.out.println("-----------------kat" + database.kategoriaDao().getKategoriaByName(kategoria).getID());
                     t.setAlKategoriaID(database.alKategoriaDao().getAlKategoriaByName(alkategoria).getID());
-                    System.out.println("-----------------alkat" + database.alKategoriaDao().getAlKategoriaByName(alkategoria).getID());
                     t.setOsszeg(ossz);
                     t.setMegjegyzes(megj);
                     DateFormat dateFormat = SimpleDateFormat.getDateInstance();
@@ -176,7 +172,7 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
     }
 
     private ArrayList<CustomItem> getKategoriaCustomList() {
-        kategoriaCustomList = new ArrayList<CustomItem>();
+        kategoriaCustomList = new ArrayList<>();
         kategoriaCustomList.add(new CustomItem(database.kategoriaDao().getKategoriaNameByID(1), R.drawable.ic_bevetel));
         kategoriaCustomList.add(new CustomItem(database.kategoriaDao().getKategoriaNameByID(2), R.drawable.ic_kiadas));
         return kategoriaCustomList;
@@ -192,26 +188,6 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
         }
         return alKategoriaCustomList;
     }
-
-//    public ArrayList<String> getKategoriaSpinner() {
-//        List<Kategoria> kategoria = database.kategoriaDao().getAll();
-//        ArrayList<String> kategoriaString = new ArrayList<String>();
-//        for (Kategoria k : kategoria) {
-//            kategoriaString.add(k.getKategoriaNev());
-//        }
-//        return kategoriaString;
-//    }
-//
-//    public ArrayList<String> getAlKategoriaSpinner() {
-//        String s = kategoriaSpinner.getSelectedItem().toString();
-//        int i = database.kategoriaDao().getKategoriaByName(s).getID();
-//        List<AlKategoria> alKategoria = database.alKategoriaDao().getAlkategoriaByKategoriaId(i);
-//        ArrayList<String> alKategoriaString = new ArrayList<String>();
-//        for (AlKategoria k : alKategoria) {
-//            alKategoriaString.add(k.getAlKategoriaNev());
-//        }
-//        return alKategoriaString;
-//    }
 
     @Override
     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
