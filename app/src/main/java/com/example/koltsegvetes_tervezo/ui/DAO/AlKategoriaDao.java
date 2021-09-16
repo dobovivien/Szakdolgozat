@@ -23,6 +23,9 @@ public interface AlKategoriaDao {
     @Query("SELECT * FROM AlKategoria WHERE ID = :id LIMIT 1")
     AlKategoria getAlkategoriaById(int id);
 
+    @Query("SELECT AlKategoriaNev FROM AlKategoria WHERE ID = :id LIMIT 1")
+    String getAlkategoriaNameById(int id);
+
     @Query("SELECT * FROM AlKategoria WHERE KategoriaID = :id")
     List<AlKategoria> getAlkategoriaByKategoriaId(int id);
 

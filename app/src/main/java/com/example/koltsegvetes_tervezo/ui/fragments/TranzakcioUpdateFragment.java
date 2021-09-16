@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.koltsegvetes_tervezo.R;
 import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
 import com.example.koltsegvetes_tervezo.ui.entities.Tranzakcio;
-import com.example.koltsegvetes_tervezo.utils.MainAdapter;
+import com.example.koltsegvetes_tervezo.utils.TranzakcioListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class TranzakcioUpdateFragment extends Fragment {
     List<Tranzakcio> tranzakcioList = new ArrayList<Tranzakcio>();
     LinearLayoutManager linearLayoutManager;
     AppDatabase database;
-    MainAdapter mainAdapter;
+    TranzakcioListAdapter tranzakcioListAdapter;
 
     public static TranzakcioUpdateFragment newInstance() {
         return new TranzakcioUpdateFragment();

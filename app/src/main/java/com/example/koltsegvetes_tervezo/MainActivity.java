@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -21,7 +22,6 @@ import com.example.koltsegvetes_tervezo.ui.fragments.*;
 import java.text.DateFormat;
 import java.util.Calendar;
 
-//import com.getbase.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -32,14 +32,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     BottomNavigationView bottomNavigationView;
     FloatingActionButton hozzaadButton;
-//    FloatingActionButton menuButton;
-//    FloatingActionButton celokButton;
-//    FloatingActionButton statButton;
-//    FloatingActionButton sporolasButton;
 
     HomeFragment homeFragment = new HomeFragment();
     TranzakcioAddFragment tranzakcioAddFragment = new TranzakcioAddFragment();
     TranzakcioListFragment tranzakcioListFragment = new TranzakcioListFragment();
+    StatisticsFragment statisticsFragment = new StatisticsFragment();
+    SettingsFragment settingsFragment = new SettingsFragment();
 
     ViewPager viewPager;
 
@@ -61,12 +59,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         toBottom = AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim);
 
         hozzaadButton = findViewById(R.id.hozzaadButton);
-//        menuButton = findViewById(R.id.topMenuButton);
-//        celokButton = findViewById(R.id.celokButton);
-//        statButton = findViewById(R.id.statisztikaButton);
-//        sporolasButton = findViewById(R.id.sporolasButon);
-
-
         hozzaadButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -75,23 +67,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }
     });
 
-//        menuButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onMenuButtonClicked();
-//            }
-//        });
 
         BottomBarPagerAdapter bottomBarPagerAdapter = new BottomBarPagerAdapter(getSupportFragmentManager(), 1);
         viewPager = (ViewPager) findViewById(R.id.fragmentHolder);
         bottomBarPagerAdapter.AddFragment(homeFragment);
         bottomBarPagerAdapter.AddFragment(tranzakcioListFragment);
         bottomBarPagerAdapter.AddFragment(tranzakcioAddFragment);
+        bottomBarPagerAdapter.AddFragment(statisticsFragment);
+        bottomBarPagerAdapter.AddFragment(settingsFragment);
+
 
         viewPager.setAdapter(bottomBarPagerAdapter);
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -104,13 +94,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     case R.id.placeholder:
                         viewPager.setCurrentItem(2);
                         return true;
+                    case R.id.statistics:
+                        viewPager.setCurrentItem(3);
+                        return true;
+                    case R.id.settings:
+                        viewPager.setCurrentItem(4);
+                        return true;
                 }
                 return false;
             }
         });
         bottomNavigationView.setSelectedItemId(0);
-
-
     }
 
     @Override
@@ -125,28 +119,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         datumTextView.setText(currentDate);
     }
 
-    private void onMenuButtonClicked() {
-//        setVisibiliy(clicked);
-//        topMenuAnimation(clicked);
-        clicked = !clicked;
-    }
-
     private void onAddButtonClicked() {
         hozzaadButtonAnimation(clicked);
         clicked = !clicked;
     }
-
-//    private void setVisibiliy(boolean clicked) {
-//        if (!clicked) {
-//            celokButton.setVisibility(View.VISIBLE);
-//            statButton.setVisibility(View.VISIBLE);
-//            sporolasButton.setVisibility(View.VISIBLE);
-//        } else {
-//            celokButton.setVisibility(View.INVISIBLE);
-//            statButton.setVisibility(View.INVISIBLE);
-//            sporolasButton.setVisibility(View.INVISIBLE);
-//        }
-//    }
 
     private void hozzaadButtonAnimation(boolean clicked){
         if (!clicked) {
@@ -156,16 +132,4 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             viewPager.setCurrentItem(0);
         }
     }
-
-//    private void topMenuAnimation(boolean clicked) {
-//        if (!clicked) {
-//            celokButton.startAnimation(fromBottom);
-//            statButton.startAnimation(fromBottom);
-//            sporolasButton.startAnimation(fromBottom);
-//        } else {
-//            celokButton.startAnimation(toBottom);
-//            statButton.startAnimation(toBottom);
-//            sporolasButton.startAnimation(toBottom);
-//        }
-//    }
 }

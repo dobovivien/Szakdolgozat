@@ -15,13 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.koltsegvetes_tervezo.MainActivity;
 import com.example.koltsegvetes_tervezo.R;
-import com.example.koltsegvetes_tervezo.ui.DAO.KategoriaDao;
 import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
-import com.example.koltsegvetes_tervezo.ui.entities.Kategoria;
 import com.example.koltsegvetes_tervezo.ui.entities.Tranzakcio;
-import com.example.koltsegvetes_tervezo.utils.MainAdapter;
+import com.example.koltsegvetes_tervezo.utils.TranzakcioListAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +31,7 @@ public class TranzakcioListFragment extends Fragment {
     ArrayList<Tranzakcio> tranzakciok = new ArrayList<Tranzakcio>();
     LinearLayoutManager linearLayoutManager;
     AppDatabase database;
-    MainAdapter adapter;
+    TranzakcioListAdapter adapter;
     TextView filter;
     boolean[] selectedCategory;
     ArrayList<Integer> categoryArray = new ArrayList<>();
@@ -77,7 +74,7 @@ public class TranzakcioListFragment extends Fragment {
 
         tranzakcioListaRecycleView.setLayoutManager(linearLayoutManager);
 
-        adapter = new MainAdapter(getActivity(), tranzakciok);
+        adapter = new TranzakcioListAdapter(getActivity(), tranzakciok);
 
         tranzakcioListaRecycleView.setAdapter(adapter);
 
@@ -119,7 +116,7 @@ public class TranzakcioListFragment extends Fragment {
                             }
                         }
                         filter.setText(stringBuilder.toString());
-                        adapter = new MainAdapter(getActivity(), tranzakciok);
+                        adapter = new TranzakcioListAdapter(getActivity(), tranzakciok);
 
                         tranzakcioListaRecycleView.setAdapter(adapter);
                     }
@@ -141,7 +138,7 @@ public class TranzakcioListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         tranzakciok = (ArrayList<Tranzakcio>) database.tranzakcioDao().getAllByDescDate();
-        adapter = new MainAdapter(getActivity(), tranzakciok);
+        adapter = new TranzakcioListAdapter(getActivity(), tranzakciok);
         tranzakcioListaRecycleView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

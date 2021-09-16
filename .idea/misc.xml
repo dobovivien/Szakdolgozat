@@ -6,6 +6,7 @@
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14635416666666667" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/ic_add.xml" value="0.14635416666666667" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/ic_ajandek.xml" value="0.2222222222222222" />
+        <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/ic_arrowdown.xml" value="0.25833333333333336" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/ic_bar_chart.xml" value="0.14635416666666667" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/ic_bev.xml" value="0.14635416666666667" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/ic_bevetel.xml" value="0.2222222222222222" />
@@ -40,16 +41,20 @@
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/activity_splash.xml" value="0.1793478260869565" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/activity_tranzakcio_update.xml" value="0.264" />
+        <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/bar_chart.xml" value="0.2" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/custom_dropdown_layout.xml" value="0.264" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/custom_spinner_layout.xml" value="0.16" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/home_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/list_row_main.xml" value="0.4" />
+        <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/settings_fragment.xml" value="0.13489583333333333" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/spinner_color_layout.xml" value="0.13541666666666666" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/spinner_dropdown_layout.xml" value="0.2" />
-        <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/statisctics_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/statisctics_fragment.xml" value="0.2" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/tranzakcio_add_fragment.xml" value="0.264" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/tranzakcio_list_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/tranzakciok_list.xml" value="0.264" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.14635416666666667" />
       </map>
     </option>
   </component>
