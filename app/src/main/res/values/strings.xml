@@ -19,5 +19,5 @@
     <string name="cancel">Mégse</string>
     <string name="categories">Kategóriák</string>
     <string name="settings">Beállítások</string>
-    <string name="date">Dátum szerinti rendezés</string>
+    <string name="date">Szűrés dátum szerint</string>
 </resources>

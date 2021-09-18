@@ -77,32 +77,29 @@
         android:textColor="@color/white"
         android:textSize="30dp" />
 
-    <ViewFlipper
-        android:id="@+id/viewFlipper"
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="230dp">
+        android:layout_marginTop="230dp"
+        android:background="@color/gray1" />
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChart"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            android:background="@color/gray1" />
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="230dp"
+        android:background="@android:color/transparent"/>
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/pieChart"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            android:background="@color/gray1" />
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lineChart"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            android:background="@color/gray1" />
-
-    </ViewFlipper>
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="230dp"
+        android:background="@color/gray1" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tranzakciokRecyclerview"
