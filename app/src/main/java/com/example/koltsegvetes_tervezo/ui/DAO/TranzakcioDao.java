@@ -8,6 +8,7 @@ import androidx.room.Query;
 import com.example.koltsegvetes_tervezo.ui.entities.Tranzakcio;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
@@ -46,4 +47,10 @@ public interface TranzakcioDao {
 
     @Query("SELECT SUM(Osszeg) FROM Tranzakcio WHERE AlKategoriaID = :AlKategoriaID")
     Integer getTransactionByAlCategory (int AlKategoriaID);
+
+    @Query("SELECT SUM(Osszeg) FROM Tranzakcio WHERE AlKategoriaID = :AlKategoriaID AND Datum = :Datum")
+    Integer getTransactionByAlCategoryAndDate (int AlKategoriaID, Date Datum);
+
+    @Query("SELECT SUM(Osszeg) FROM Tranzakcio WHERE AlKategoriaID = :AlKategoriaID AND Datum BETWEEN :StartDatum AND :EndDatum")
+    Integer getTransactionByAlCategoryAndDateInterval (int AlKategoriaID, Date StartDatum, Date EndDatum);
 }

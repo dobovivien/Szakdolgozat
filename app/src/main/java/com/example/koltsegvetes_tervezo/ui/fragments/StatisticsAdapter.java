@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SyncStatusObserver;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,6 @@ public class StatisticsAdapter extends RecyclerView.Adapter<StatisticsAdapter.Vi
         this.context = context;
         this.tranzakcioList = tranzakcioList;
         this.sum = osszegOsszead();
-        notifyDataSetChanged();
     }
 
     @NonNull
@@ -61,7 +61,6 @@ public class StatisticsAdapter extends RecyclerView.Adapter<StatisticsAdapter.Vi
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         String alkategoria = tranzakcioList.keySet().toArray()[position].toString();
         final int tranzakcio = tranzakcioList.get(alkategoria);
-
         database = AppDatabase.getInstance(context);
 
         holder.osszegTextView.setText(String.valueOf(tranzakcio + " Ft"));
@@ -80,7 +79,6 @@ public class StatisticsAdapter extends RecyclerView.Adapter<StatisticsAdapter.Vi
         for (int a: tranzakcioList.values()) {
             s += a;
         }
-        System.out.println(s);
         return s;
     }
 

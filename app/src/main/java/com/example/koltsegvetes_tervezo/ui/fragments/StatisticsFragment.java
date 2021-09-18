@@ -1,9 +1,12 @@
 package com.example.koltsegvetes_tervezo.ui.fragments;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +28,7 @@ import com.example.koltsegvetes_tervezo.R;
 import com.example.koltsegvetes_tervezo.ui.entities.AlKategoria;
 import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
 import com.example.koltsegvetes_tervezo.ui.entities.Kategoria;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -42,9 +46,23 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+
 public class StatisticsFragment extends Fragment {
 
     private StatisticsViewModel mViewModel;
@@ -70,7 +88,8 @@ public class StatisticsFragment extends Fragment {
     ArrayList<ILineDataSet> lineDataSets;
     TextView dateFilter;
     String[] dateFilterItems;
-
+    int dateSelect;
+    int defaultSelectedPosition = 0;
 
     int katID = 2;
     String katText = "Kiadásaim";
@@ -106,7 +125,7 @@ public class StatisticsFragment extends Fragment {
         vonaldGomb = view.findViewById(R.id.lineGraphButton);
         valtasGomb = view.findViewById(R.id.sourceChangeButton);
         dateFilter = view.findViewById(R.id.dateFilterTextView);
-        dateFilterItems = new String[] {"Aktuális hónap", "Aktuális hét", "Előző hét"};
+        dateFilterItems = new String[] {"Mind", "Aktuális hónap", "Aktuális hét", "Előző hét"};
 
         barChart = view.findViewById(R.id.barChart);
         pieChart = view.findViewById(R.id.pieChart);
@@ -175,28 +194,20 @@ public class StatisticsFragment extends Fragment {
                 builder.setTitle("Szűrés dátum szerint");
                 builder.setCancelable(false);
 
-                builder.setSingleChoiceItems(dateFilterItems, 1, new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(dateFilterItems,  defaultSelectedPosition, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-
-                                System.out.println("elso");
-                                break;
-                            case 1:
-                                System.out.println("masodik");
-                                break;
-                            case 2:
-                                System.out.println("harmadik");
-                                break;
-                        }
+                        dateSelect = which;
+                        defaultSelectedPosition = which;
                     }
                 });
 
                 builder.setPositiveButton("Kiválaszt", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
-
+                        tranzakcioList = osszegzesAlkategorianket();
+                        adapter.setTranzakcioList(tranzakcioList);
+                        adapter.notifyDataSetChanged();
                     }
                 });
 
@@ -237,7 +248,6 @@ public class StatisticsFragment extends Fragment {
             PieEntry pieEntry = new PieEntry(tranzakcioList.get(alkategoria), i);
             valueSet.add(pieEntry);
             i++;
-            System.out.println(pieEntry);
         }
 
         piedataSets = new PieDataSet (valueSet, "");
@@ -275,6 +285,7 @@ public class StatisticsFragment extends Fragment {
         }
         tranzakcioList = osszegzesAlkategorianket();
         adapter.setTranzakcioList(tranzakcioList);
+        adapter.notifyDataSetChanged();
     }
 
     public void barChartLetrehoz() {
@@ -312,7 +323,7 @@ public class StatisticsFragment extends Fragment {
     public void lineChartLetrehoz() {
         lineData = new LineData(getLineDataSet());
         lineChart.setData(lineData);
-        lineChart.animateXY(2000, 2000);
+        lineChart.animateY(2000);
         lineChart.getDescription().setEnabled(false);
         lineChart.notifyDataSetChanged();
         lineChart.getLegend().setEnabled(false);
@@ -328,16 +339,55 @@ public class StatisticsFragment extends Fragment {
         lineChart.invalidate();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public HashMap<String, Integer> osszegzesAlkategorianket() {
-        HashMap<String, Integer> tranzDict = new HashMap<String, Integer>();
+        StringBuilder stringBuilder = new StringBuilder();
+        ZoneId zoneID = ZoneId.systemDefault();
+        LocalDate now = LocalDate.now();
+        HashMap<String, Integer> tranzMap = new HashMap<String, Integer>();
         List<AlKategoria> alkategoriak = database.alKategoriaDao().getAlkategoriaByKategoriaId(katID);
         for (int i = 0; i < alkategoriak.size(); i++) {
-            Integer test = database.tranzakcioDao().getTransactionByAlCategory(alkategoriak.get(i).getID());
+            Integer test = null;
+            switch (dateSelect) {
+                case 0:
+                    test = database.tranzakcioDao().getTransactionByAlCategory(alkategoriak.get(i).getID());
+                    break;
+                case 1:
+                    LocalDateTime currentDate = LocalDateTime.now();
+                    Month month = currentDate.getMonth();
+                    int startDay = 1;
+                    YearMonth yearMonthObject = YearMonth.of(currentDate.getYear(), month);
+                    int endDay = yearMonthObject.lengthOfMonth();
+                    LocalDate start = LocalDate.of(currentDate.getYear(), month, startDay);
+                    LocalDate end = LocalDate.of(currentDate.getYear(), month, endDay);
+                    ZonedDateTime startD = start.atStartOfDay(zoneID);
+                    ZonedDateTime endD = end.atStartOfDay(zoneID);
+                    Date startDate = Date.from(startD.toInstant());
+                    Date endDate = Date.from(endD.toInstant());
+                    java.sql.Date startSqlDate = new java.sql.Date(startDate.getTime());
+                    java.sql.Date endSqlDate = new java.sql.Date(endDate.getTime());
+                    test = database.tranzakcioDao().getTransactionByAlCategoryAndDateInterval(alkategoriak.get(i).getID(), startSqlDate, endSqlDate);
+                    break;
+                case 2:
+                    DayOfWeek firstDayOfWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
+                    LocalDate startOfCurrentWeek = now.with(TemporalAdjusters.previousOrSame(firstDayOfWeek));
+                    DayOfWeek lastDayOfWeek = firstDayOfWeek.plus(6); // or minus(1)
+                    LocalDate endOfWeek = now.with(TemporalAdjusters.nextOrSame(lastDayOfWeek));
+                    ZonedDateTime zS = startOfCurrentWeek.atStartOfDay(zoneID);
+                    ZonedDateTime zE = endOfWeek.atStartOfDay(zoneID);
+                    Date startDay2 = Date.from(zS.toInstant());
+                    Date endDay2 = Date.from(zE.toInstant());
+                    java.sql.Date startSqlDay = new java.sql.Date(startDay2.getTime());
+                    java.sql.Date endSqlDay = new java.sql.Date(endDay2.getTime());
+                    test = database.tranzakcioDao().getTransactionByAlCategoryAndDateInterval(alkategoriak.get(i).getID(), startSqlDay, endSqlDay);
+                    break;
+                case 3:
+            }
             if (test != null) {
-                tranzDict.put(alkategoriak.get(i).getAlKategoriaNev(), test);
+                tranzMap.put(alkategoriak.get(i).getAlKategoriaNev(), test);
             }
         }
-        return tranzDict;
+        return tranzMap;
     }
 
     @Override
