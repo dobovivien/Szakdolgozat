@@ -24,6 +24,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anychart.scales.DateTime;
 import com.example.koltsegvetes_tervezo.R;
 import com.example.koltsegvetes_tervezo.ui.entities.AlKategoria;
 import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
@@ -46,6 +47,8 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -71,6 +74,7 @@ public class StatisticsFragment extends Fragment {
     TextView osszegTextView;
     TextView szazalekTextView;
     TextView kategoriaTextView;
+    TextView valasztottDatumTextView;
     RecyclerView alkategoriaRecyclerView;
     StatisticsAdapter adapter;
     Button kordGomb;
@@ -120,6 +124,7 @@ public class StatisticsFragment extends Fragment {
         alkategoriaRecyclerView = view.findViewById(R.id.tranzakciokRecyclerview);
         kategoriaTextView = view.findViewById(R.id.categoryTextView);
         kategoriaTextView.setText("Kiadásaim");
+        valasztottDatumTextView = view.findViewById(R.id.selectedDateTextView);
         kordGomb = view.findViewById(R.id.pieChartButton);
         oszlopdGomb = view.findViewById(R.id.barGraphButton);
         vonaldGomb = view.findViewById(R.id.lineGraphButton);
@@ -207,6 +212,9 @@ public class StatisticsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int i) {
                         tranzakcioList = osszegzesAlkategorianket();
                         adapter.setTranzakcioList(tranzakcioList);
+                        barChartLetrehoz();
+                        pieChartLetrehoz();
+                        lineChartLetrehoz();
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -339,9 +347,10 @@ public class StatisticsFragment extends Fragment {
         lineChart.invalidate();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint({"NotifyDataSetChanged", "SetTextI18n", "SimpleDateFormat"})
     public HashMap<String, Integer> osszegzesAlkategorianket() {
         StringBuilder stringBuilder = new StringBuilder();
+        SimpleDateFormat sdt = new SimpleDateFormat("yyyy.MM.dd.");
         ZoneId zoneID = ZoneId.systemDefault();
         LocalDate now = LocalDate.now();
         HashMap<String, Integer> tranzMap = new HashMap<String, Integer>();
@@ -351,6 +360,7 @@ public class StatisticsFragment extends Fragment {
             switch (dateSelect) {
                 case 0:
                     test = database.tranzakcioDao().getTransactionByAlCategory(alkategoriak.get(i).getID());
+                    valasztottDatumTextView.setText("Mindenkori");
                     break;
                 case 1:
                     LocalDateTime currentDate = LocalDateTime.now();
@@ -367,11 +377,12 @@ public class StatisticsFragment extends Fragment {
                     java.sql.Date startSqlDate = new java.sql.Date(startDate.getTime());
                     java.sql.Date endSqlDate = new java.sql.Date(endDate.getTime());
                     test = database.tranzakcioDao().getTransactionByAlCategoryAndDateInterval(alkategoriak.get(i).getID(), startSqlDate, endSqlDate);
+                    valasztottDatumTextView.setText(sdt.format(startSqlDate) + " - " + sdt.format(endSqlDate));
                     break;
                 case 2:
                     DayOfWeek firstDayOfWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
                     LocalDate startOfCurrentWeek = now.with(TemporalAdjusters.previousOrSame(firstDayOfWeek));
-                    DayOfWeek lastDayOfWeek = firstDayOfWeek.plus(6); // or minus(1)
+                    DayOfWeek lastDayOfWeek = firstDayOfWeek.plus(6);
                     LocalDate endOfWeek = now.with(TemporalAdjusters.nextOrSame(lastDayOfWeek));
                     ZonedDateTime zS = startOfCurrentWeek.atStartOfDay(zoneID);
                     ZonedDateTime zE = endOfWeek.atStartOfDay(zoneID);
@@ -380,8 +391,24 @@ public class StatisticsFragment extends Fragment {
                     java.sql.Date startSqlDay = new java.sql.Date(startDay2.getTime());
                     java.sql.Date endSqlDay = new java.sql.Date(endDay2.getTime());
                     test = database.tranzakcioDao().getTransactionByAlCategoryAndDateInterval(alkategoriak.get(i).getID(), startSqlDay, endSqlDay);
+                    valasztottDatumTextView.setText(sdt.format(startSqlDay) + " - " + sdt.format(endSqlDay));
                     break;
                 case 3:
+                    LocalDate today = LocalDate.now(zoneID);
+                    LocalDate sameDayLastWeek = today.minusWeeks(1);
+                    DayOfWeek firstDayOfPreviousWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
+                    LocalDate lastWeeksFirstDay = sameDayLastWeek.with(TemporalAdjusters.previousOrSame(firstDayOfPreviousWeek));
+                    DayOfWeek lastDayOfPreviousWeek = firstDayOfPreviousWeek.plus(6);
+                    LocalDate endOfPreviousWeek = sameDayLastWeek.with(TemporalAdjusters.nextOrSame(lastDayOfPreviousWeek));
+                    ZonedDateTime zS2 = lastWeeksFirstDay.atStartOfDay(zoneID);
+                    ZonedDateTime zE2 = endOfPreviousWeek.atStartOfDay(zoneID);
+                    Date prevWeekStartDay = Date.from(zS2.toInstant());
+                    Date prevWeekEndDay = Date.from(zE2.toInstant());
+                    java.sql.Date prevStartSqlDay = new java.sql.Date(prevWeekStartDay.getTime());
+                    java.sql.Date prevEndSqlDay = new java.sql.Date(prevWeekEndDay.getTime());
+                    test = database.tranzakcioDao().getTransactionByAlCategoryAndDateInterval(alkategoriak.get(i).getID(), prevStartSqlDay, prevEndSqlDay);
+                    valasztottDatumTextView.setText(sdt.format(prevStartSqlDay) + " - " + sdt.format(prevEndSqlDay));
+                    break;
             }
             if (test != null) {
                 tranzMap.put(alkategoriak.get(i).getAlKategoriaNev(), test);

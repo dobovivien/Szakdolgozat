@@ -77,12 +77,22 @@
         android:textColor="@color/white"
         android:textSize="30dp" />
 
+    <TextView
+        android:id="@+id/selectedDateTextView"
+        android:layout_width="350dp"
+        android:layout_height="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="15dp" />
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="240dp"
         android:background="@color/gray1" />
 
     <com.github.mikephil.charting.charts.PieChart
@@ -90,7 +100,7 @@
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="240dp"
         android:background="@android:color/transparent"/>
 
     <com.github.mikephil.charting.charts.LineChart
@@ -98,7 +108,7 @@
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="240dp"
         android:background="@color/gray1" />
 
     <androidx.recyclerview.widget.RecyclerView
