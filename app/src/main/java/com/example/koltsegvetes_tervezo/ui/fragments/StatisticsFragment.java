@@ -137,10 +137,7 @@ public class StatisticsFragment extends Fragment {
         lineChart = view.findViewById(R.id.lineChart);
 
         database = AppDatabase.getInstance(getActivity().getApplication());
-
-        barChartLetrehoz();
-        pieChartLetrehoz();
-        lineChartLetrehoz();
+        tranzakcioList = osszegzesAlkategorianket();
 
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplication());
         alkategoriaRecyclerView.setLayoutManager(linearLayoutManager);
@@ -156,16 +153,20 @@ public class StatisticsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 changeKatID();
-                barChartLetrehoz();
-                pieChartLetrehoz();
-                lineChartLetrehoz();
+                if (!tranzakcioList.isEmpty()) {
+                    barChartLetrehoz();
+                    pieChartLetrehoz();
+                    lineChartLetrehoz();
+                }
             }
         });
 
         kordGomb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pieChartLetrehoz();
+                if (!tranzakcioList.isEmpty()) {
+                    pieChartLetrehoz();
+                }
                 pieChart.setVisibility(View.VISIBLE);
                 barChart.setVisibility(View.INVISIBLE);
                 lineChart.setVisibility(View.INVISIBLE);
@@ -175,7 +176,9 @@ public class StatisticsFragment extends Fragment {
         oszlopdGomb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                barChartLetrehoz();
+                if (!tranzakcioList.isEmpty()) {
+                    barChartLetrehoz();
+                }
                 barChart.setVisibility(View.VISIBLE);
                 pieChart.setVisibility(View.INVISIBLE);
                 lineChart.setVisibility(View.INVISIBLE);
@@ -185,7 +188,9 @@ public class StatisticsFragment extends Fragment {
         vonaldGomb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lineChartLetrehoz();
+                if (!tranzakcioList.isEmpty()) {
+                    lineChartLetrehoz();
+                }
                 lineChart.setVisibility(View.VISIBLE);
                 barChart.setVisibility(View.INVISIBLE);
                 pieChart.setVisibility(View.INVISIBLE);
@@ -212,9 +217,11 @@ public class StatisticsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int i) {
                         tranzakcioList = osszegzesAlkategorianket();
                         adapter.setTranzakcioList(tranzakcioList);
-                        barChartLetrehoz();
-                        pieChartLetrehoz();
-                        lineChartLetrehoz();
+                        if (!tranzakcioList.isEmpty()) {
+                            barChartLetrehoz();
+                            pieChartLetrehoz();
+                            lineChartLetrehoz();
+                        }
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -228,6 +235,11 @@ public class StatisticsFragment extends Fragment {
                 builder.show();
             }
         });
+        if (!tranzakcioList.isEmpty()) {
+            barChartLetrehoz();
+            pieChartLetrehoz();
+            lineChartLetrehoz();
+        }
     }
 
     private ArrayList<IBarDataSet> getBarDataSet() {

@@ -20,11 +20,11 @@
             android:layout_marginTop="40dp"
             android:text="@string/add_transaction"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/white"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
             android:id="@+id/kategoriaSpinner"
@@ -123,6 +123,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <CheckBox
+            android:id="@+id/allandoCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="540dp"
+            android:layout_marginLeft="65dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="550dp"
+            android:text="Rendszeres tranzakció"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="350dp"
+            android:layout_marginTop="555dp"
+            android:src="@drawable/ic_info" />
 
         <Button
             android:id="@+id/tranzakcioAddButton"

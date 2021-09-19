@@ -41,7 +41,6 @@ public class CustomAdapter extends ArrayAdapter {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.custom_dropdown_layout, parent, false);
         }
         CustomItem item = (CustomItem) getItem(position);
-        System.out.println("'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" + item.getSpinnerItemName());
         ImageView dropdownIV = convertView.findViewById(R.id.DropdownImageID);
         TextView dropdownTV = convertView.findViewById(R.id.DropdownTextID);
         if (item != null) {

@@ -2,10 +2,18 @@ package com.example.koltsegvetes_tervezo;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,14 +66,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         fromBottom = AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim);
 
+
+
         hozzaadButton = findViewById(R.id.hozzaadButton);
         hozzaadButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             viewPager.setCurrentItem(2);
             onAddButtonClicked();
-        }
-    });
+        }});
 
 
         BottomBarPagerAdapter bottomBarPagerAdapter = new BottomBarPagerAdapter(getSupportFragmentManager(), 1);
@@ -105,6 +114,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
         bottomNavigationView.setSelectedItemId(0);
+
+        String fragmentName = getIntent().getStringExtra("fragmentName");
+
+        if (fragmentName != null) {
+            if (fragmentName.equals("TranzakcioAddFragment")) {
+                viewPager.setCurrentItem(2);
+            }
+        }
     }
 
     @Override

@@ -1,13 +1,17 @@
 package com.example.koltsegvetes_tervezo.ui.fragments;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +29,7 @@ import com.example.koltsegvetes_tervezo.CustomItem;
 import com.example.koltsegvetes_tervezo.R;
 import com.example.koltsegvetes_tervezo.ResourceHandler;
 import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
+import com.example.koltsegvetes_tervezo.ui.entities.Ertesites;
 import com.example.koltsegvetes_tervezo.ui.entities.Tranzakcio;
 
 import java.text.DateFormat;
@@ -48,6 +53,8 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
     AppDatabase database;
     Spinner kategoriaSpinner;
     Spinner alKategoriaSpinner;
+    ImageView tooltip;
+    CheckBox allandoCheckBox;
     ArrayList<CustomItem> kategoriaCustomList;
     ArrayList<CustomItem> alKategoriaCustomList;
     MutableLiveData<ArrayList<CustomItem>> kategoriaImg = new MutableLiveData<ArrayList<CustomItem>>();
@@ -88,9 +95,13 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
         alKategoriaSpinner = view.findViewById(R.id.alKategoriSpinner);
         alKategoriaSpinner = view.findViewById(R.id.alKategoriSpinner);
         alKategoriaSpinner.setEnabled(false);
-
+        tooltip = view.findViewById(R.id.allandoTooltip);
+        tooltip.setTooltipText("Amennyiben szeretne emlékeztetőt kapni a tranzakció rögzítéséről, jelölje be a négyzetet!");
+        allandoCheckBox = view.findViewById(R.id.allandoCheckBox);
         kategoriaCustomList = getKategoriaCustomList();
-        //CustomAdapter customAdapter = new CustomAdapter(this.requireActivity(), kategoriaCustomList);
+
+        NotificationManager manager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancelAll();
 
         datumButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,12 +114,44 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
         tranzakcioHozzaadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (CheckAllFields()) {
+                if (allandoCheckBox.isChecked() && CheckAllFields()) {
                     String kategoria = ((CustomItem) kategoriaSpinner.getSelectedItem()).getSpinnerItemName();
                     String alkategoria = ((CustomItem) alKategoriaSpinner.getSelectedItem()).getSpinnerItemName();
                     int ossz = Integer.parseInt(osszegEditText.getText().toString());
                     String megj = megjegyzesEditText.getText().toString().trim();
 
+                    Tranzakcio t = new Tranzakcio();
+                    t.setKategoriaID(database.kategoriaDao().getKategoriaByName(kategoria).getID());
+                    t.setAlKategoriaID(database.alKategoriaDao().getAlKategoriaByName(alkategoria).getID());
+                    t.setOsszeg(ossz);
+                    t.setMegjegyzes(megj);
+                    Ertesites ertesites = new Ertesites();
+                    ertesites.setKategoriaID(database.kategoriaDao().getKategoriaByName(kategoria).getID());
+                    ertesites.setAlKategoriaID(database.alKategoriaDao().getAlKategoriaByName(alkategoria).getID());
+                    ertesites.setOsszeg(ossz);
+                    ertesites.setMegjegyzes(megj);
+                    DateFormat dateFormat = SimpleDateFormat.getDateInstance();
+                    Date d = null;
+                    try {
+                        d = dateFormat.parse(datumTextView.getText().toString());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    t.setDatum(d);
+                    ertesites.setDatum(d);
+                    database.tranzakcioDao().insert(t);
+                    database.ertesitesDao().insert(ertesites);
+                    osszegEditText.setText("");
+                    megjegyzesEditText.setText("");
+                    datumTextView.setText("");
+                    tranzakcioList.clear();
+                    tranzakcioList.addAll(database.tranzakcioDao().getAll());
+                    Toast.makeText(getContext(), "Tranzakció hozzáadva!", Toast.LENGTH_SHORT).show();
+                } else if (CheckAllFields()) {
+                    String kategoria = ((CustomItem) kategoriaSpinner.getSelectedItem()).getSpinnerItemName();
+                    String alkategoria = ((CustomItem) alKategoriaSpinner.getSelectedItem()).getSpinnerItemName();
+                    int ossz = Integer.parseInt(osszegEditText.getText().toString());
+                    String megj = megjegyzesEditText.getText().toString().trim();
                     Tranzakcio t = new Tranzakcio();
                     t.setKategoriaID(database.kategoriaDao().getKategoriaByName(kategoria).getID());
                     t.setAlKategoriaID(database.alKategoriaDao().getAlKategoriaByName(alkategoria).getID());
@@ -165,7 +208,6 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
                 CustomAdapter customAdapter = new CustomAdapter(requireActivity(), items);
                 alKategoriaSpinner.setAdapter(customAdapter);
                 customAdapter.setDropDownViewResource(R.layout.custom_dropdown_layout);
-
             }
         };
         alKategoriaImg.observe(getViewLifecycleOwner(), alKategoriaObserver);
