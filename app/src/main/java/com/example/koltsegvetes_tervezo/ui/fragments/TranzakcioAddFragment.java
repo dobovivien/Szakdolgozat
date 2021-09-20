@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -53,12 +55,15 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
     AppDatabase database;
     Spinner kategoriaSpinner;
     Spinner alKategoriaSpinner;
+    Spinner valutaSpinner;
     ImageView tooltip;
     CheckBox allandoCheckBox;
     ArrayList<CustomItem> kategoriaCustomList;
     ArrayList<CustomItem> alKategoriaCustomList;
+    List<String> valutaList;
     MutableLiveData<ArrayList<CustomItem>> kategoriaImg = new MutableLiveData<ArrayList<CustomItem>>();
     MutableLiveData<ArrayList<CustomItem>> alKategoriaImg = new MutableLiveData<ArrayList<CustomItem>>();
+    MutableLiveData<ArrayList<String>> valutaMutableLiveData = new MutableLiveData<ArrayList<String>>();
 
     public static TranzakcioAddFragment newInstance() {
         return new TranzakcioAddFragment();
@@ -94,11 +99,13 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
         kategoriaSpinner = view.findViewById(R.id.kategoriaSpinner);
         alKategoriaSpinner = view.findViewById(R.id.alKategoriSpinner);
         alKategoriaSpinner = view.findViewById(R.id.alKategoriSpinner);
+        valutaSpinner = view.findViewById(R.id.valutaSpinner);
         alKategoriaSpinner.setEnabled(false);
         tooltip = view.findViewById(R.id.allandoTooltip);
         tooltip.setTooltipText("Amennyiben szeretne emlékeztetőt kapni a tranzakció rögzítéséről, jelölje be a négyzetet!");
         allandoCheckBox = view.findViewById(R.id.allandoCheckBox);
         kategoriaCustomList = getKategoriaCustomList();
+        valutaList = database.valutakDao().getAllValutaName();
 
         NotificationManager manager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancelAll();
@@ -118,17 +125,20 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
                     String kategoria = ((CustomItem) kategoriaSpinner.getSelectedItem()).getSpinnerItemName();
                     String alkategoria = ((CustomItem) alKategoriaSpinner.getSelectedItem()).getSpinnerItemName();
                     int ossz = Integer.parseInt(osszegEditText.getText().toString());
+                    String valuta = valutaSpinner.getSelectedItem().toString();
                     String megj = megjegyzesEditText.getText().toString().trim();
 
                     Tranzakcio t = new Tranzakcio();
                     t.setKategoriaID(database.kategoriaDao().getKategoriaByName(kategoria).getID());
                     t.setAlKategoriaID(database.alKategoriaDao().getAlKategoriaByName(alkategoria).getID());
                     t.setOsszeg(ossz);
+                    t.setValutaID(database.valutakDao().getValutaByName(valuta).getID());
                     t.setMegjegyzes(megj);
                     Ertesites ertesites = new Ertesites();
                     ertesites.setKategoriaID(database.kategoriaDao().getKategoriaByName(kategoria).getID());
                     ertesites.setAlKategoriaID(database.alKategoriaDao().getAlKategoriaByName(alkategoria).getID());
                     ertesites.setOsszeg(ossz);
+                    ertesites.setValutaID(database.valutakDao().getValutaByName(valuta).getID());
                     ertesites.setMegjegyzes(megj);
                     DateFormat dateFormat = SimpleDateFormat.getDateInstance();
                     Date d = null;
@@ -211,6 +221,17 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
             }
         };
         alKategoriaImg.observe(getViewLifecycleOwner(), alKategoriaObserver);
+
+        Observer<ArrayList<String>> valutaObserver = new Observer<ArrayList<String>>() {
+            @Override
+            public void onChanged(ArrayList<String> strings) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, valutaList);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                valutaSpinner.setAdapter(adapter);
+            }
+        };
+        valutaMutableLiveData.observe(getViewLifecycleOwner(), valutaObserver);
+        valutaMutableLiveData.setValue((ArrayList<String>) valutaList);
     }
 
     private ArrayList<CustomItem> getKategoriaCustomList() {

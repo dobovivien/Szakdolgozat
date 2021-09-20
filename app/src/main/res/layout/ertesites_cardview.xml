@@ -71,8 +71,8 @@
             android:id="@+id/kikapcsolSwitch"
             android:layout_width="60dp"
             android:layout_height="40dp"
-            android:layout_marginTop="50dp"
             android:layout_marginLeft="280dp"
+            android:layout_marginTop="50dp"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     </RelativeLayout>

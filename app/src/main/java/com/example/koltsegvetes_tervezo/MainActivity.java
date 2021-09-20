@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
@@ -22,13 +23,20 @@ import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.example.koltsegvetes_tervezo.ui.entities.AlKategoria;
+import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
+import com.example.koltsegvetes_tervezo.ui.entities.Ertesites;
+import com.example.koltsegvetes_tervezo.ui.entities.Kategoria;
+import com.example.koltsegvetes_tervezo.ui.entities.Valutak;
 import com.example.koltsegvetes_tervezo.utils.BottomBarPagerAdapter;
+import com.example.koltsegvetes_tervezo.utils.Valuta;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.koltsegvetes_tervezo.ui.fragments.*;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -37,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     Animation rotateClose;
     Animation fromBottom;
     Animation toBottom;
+
+    AppDatabase database;
 
     BottomNavigationView bottomNavigationView;
     FloatingActionButton hozzaadButton;
@@ -55,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        database = AppDatabase.getInstance(this.getApplication());
+        checkIfDatabeseIsEmpty();
+
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setBackground(null);
 
@@ -147,6 +161,100 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         } else {
             hozzaadButton.startAnimation(rotateClose);
             viewPager.setCurrentItem(0);
+        }
+    }
+
+    private void checkIfDatabeseIsEmpty() {
+        Kategoria bevetel = new Kategoria(1, "Bevétel");
+        Kategoria kiadas = new Kategoria(2, "Kiadás");
+
+        AlKategoria fizetes = new AlKategoria(1,1,"Fizetés");
+        AlKategoria ajandek = new AlKategoria(2,1,"Ajándék");
+        AlKategoria juttatas = new AlKategoria(3,1,"Juttatás");
+        AlKategoria eladas = new AlKategoria(4,1,"Eladás");
+        AlKategoria jovairas = new AlKategoria(5,1,"Jóváírás");
+        AlKategoria megtakaritas = new AlKategoria(6,1,"Megtakarítás");
+        AlKategoria befektetesjov = new AlKategoria(7,1,"Jövedelem befektetséből");
+        AlKategoria lakber = new AlKategoria(8,2,"Lakbér");
+        AlKategoria rezsi = new AlKategoria(9,2,"Rezsi");
+        AlKategoria elelmiszer = new AlKategoria(10,2,"Élelmiszer");
+        AlKategoria ruhazat = new AlKategoria(11,2,"Ruházat");
+        AlKategoria sport = new AlKategoria(12,2,"Sport");
+        AlKategoria egeszseg = new AlKategoria(13,2,"Egészség");
+        AlKategoria szepsegapolas = new AlKategoria(14,2,"Szépségápolás");
+        AlKategoria haztartas = new AlKategoria(15,2,"Háztartás");
+        AlKategoria szorakozas = new AlKategoria(16,2,"Szórakozás");
+        AlKategoria etterem = new AlKategoria(17,2,"Étterem/kávézó");
+        AlKategoria utazas = new AlKategoria(18,2,"Utazás");
+        AlKategoria baba = new AlKategoria(19,2,"Baba/gyerekek");
+        AlKategoria auto = new AlKategoria(20,2,"Autó");
+        AlKategoria oktatas = new AlKategoria(21,2,"Oktatás");
+        AlKategoria haziallat = new AlKategoria(22,2,"Háziállat");
+        AlKategoria kert = new AlKategoria(23,2,"Kert");
+        AlKategoria elektornika = new AlKategoria(24,2,"Elektronikus eszközök");
+        AlKategoria karbantartas = new AlKategoria(25,2,"Karbantartás");
+        AlKategoria hitel = new AlKategoria(26,2,"Hitel");
+        AlKategoria befektetes = new AlKategoria(27,2,"Befektetés");
+        AlKategoria biztositas = new AlKategoria(28,2,"Biztosítás");
+        AlKategoria kolcson = new AlKategoria(29,1,"Kölcsön");
+        AlKategoria ajandek2 = new AlKategoria(30,2,"Ajándék");
+        AlKategoria egyeb = new AlKategoria(31,2,"Egyéb");
+        AlKategoria egyeb2 = new AlKategoria(32,1,"Egyéb");
+
+        Valutak ft = new Valutak(1, "Ft");
+        Valutak eur = new Valutak(2, "Eur");
+        Valutak usd = new Valutak(3, "Usd");
+        Valutak din = new Valutak(4, "Din");
+
+        List<Kategoria> kategoriaLiveData = database.kategoriaDao().getAll();
+        List<AlKategoria> alKategoriaLiveData = database.alKategoriaDao().getAll();
+        List<Valutak> valutaLiveData = database.valutakDao().getAll();
+
+        if (kategoriaLiveData.isEmpty()) {
+            database.kategoriaDao().insert(bevetel);
+            database.kategoriaDao().insert(kiadas);
+        }
+
+        if (alKategoriaLiveData.isEmpty()) {
+            database.alKategoriaDao().insert(fizetes);
+            database.alKategoriaDao().insert(ajandek);
+            database.alKategoriaDao().insert(juttatas);
+            database.alKategoriaDao().insert(eladas);
+            database.alKategoriaDao().insert(jovairas);
+            database.alKategoriaDao().insert(megtakaritas);
+            database.alKategoriaDao().insert(befektetesjov);
+            database.alKategoriaDao().insert(lakber);
+            database.alKategoriaDao().insert(rezsi);
+            database.alKategoriaDao().insert(elelmiszer);
+            database.alKategoriaDao().insert(ruhazat);
+            database.alKategoriaDao().insert(sport);
+            database.alKategoriaDao().insert(egeszseg);
+            database.alKategoriaDao().insert(szepsegapolas);
+            database.alKategoriaDao().insert(haztartas);
+            database.alKategoriaDao().insert(szorakozas);
+            database.alKategoriaDao().insert(etterem);
+            database.alKategoriaDao().insert(utazas);
+            database.alKategoriaDao().insert(baba);
+            database.alKategoriaDao().insert(auto);
+            database.alKategoriaDao().insert(oktatas);
+            database.alKategoriaDao().insert(haziallat);
+            database.alKategoriaDao().insert(kert);
+            database.alKategoriaDao().insert(elektornika);
+            database.alKategoriaDao().insert(karbantartas);
+            database.alKategoriaDao().insert(hitel);
+            database.alKategoriaDao().insert(befektetes);
+            database.alKategoriaDao().insert(biztositas);
+            database.alKategoriaDao().insert(kolcson);
+            database.alKategoriaDao().insert(ajandek2);
+            database.alKategoriaDao().insert(egyeb);
+            database.alKategoriaDao().insert(egyeb2);
+        }
+
+        if (valutaLiveData.isEmpty()) {
+            database.valutakDao().insert(ft);
+            database.valutakDao().insert(eur);
+            database.valutakDao().insert(usd);
+            database.valutakDao().insert(din);
         }
     }
 }

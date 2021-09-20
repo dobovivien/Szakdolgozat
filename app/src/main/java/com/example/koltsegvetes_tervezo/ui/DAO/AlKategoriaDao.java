@@ -1,5 +1,6 @@
 package com.example.koltsegvetes_tervezo.ui.DAO;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -34,4 +35,7 @@ public interface AlKategoriaDao {
 
     @Insert(onConflict = REPLACE)
     void insert (AlKategoria alKategoria);
+
+    @Query("SELECT * FROM AlKategoria")
+    LiveData<List<AlKategoria>> selectAllAlKategoria();
 }

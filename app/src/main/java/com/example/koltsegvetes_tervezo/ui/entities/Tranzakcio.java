@@ -12,7 +12,8 @@ import static androidx.room.ForeignKey.CASCADE;
 
 
 @Entity (foreignKeys = { @ForeignKey(entity = Kategoria.class, parentColumns = "ID", childColumns = "KategoriaID", onDelete = CASCADE),
-                         @ForeignKey(entity = AlKategoria.class, parentColumns = "ID", childColumns = "AlKategoriaID", onDelete = CASCADE)})
+                         @ForeignKey(entity = AlKategoria.class, parentColumns = "ID", childColumns = "AlKategoriaID", onDelete = CASCADE),
+                         @ForeignKey(entity = Valutak.class, parentColumns = "ID", childColumns = "ValutaID", onDelete = CASCADE)})
 
 public class Tranzakcio {
 
@@ -23,15 +24,17 @@ public class Tranzakcio {
     private int Osszeg;
     private Date Datum;
     private String Megjegyzes;
+    private int ValutaID;
 
     //constructor
-    public Tranzakcio(int ID, int KategoriaID, int AlKategoriaID, int Osszeg, Date Datum, String Megjegyzes) {
+    public Tranzakcio(int ID, int KategoriaID, int AlKategoriaID, int Osszeg, Date Datum, String Megjegyzes, int ValutaID) {
         this.ID = ID;
         this.KategoriaID = KategoriaID;
         this.AlKategoriaID = AlKategoriaID;
         this.Osszeg = Osszeg;
         this.Datum = Datum;
         this.Megjegyzes = Megjegyzes;
+        this.ValutaID = ValutaID;
     }
 
     public Tranzakcio() {
@@ -41,6 +44,7 @@ public class Tranzakcio {
         this.Osszeg = 0;
         this.Datum = null;
         this.Megjegyzes = "";
+        this.ValutaID = 0;
     }
 
     public int getID() {
@@ -89,5 +93,13 @@ public class Tranzakcio {
 
     public void setMegjegyzes(String megjegyzes) {
         Megjegyzes = megjegyzes;
+    }
+
+    public int getValutaID() {
+        return ValutaID;
+    }
+
+    public void setValutaID(int valutaID) {
+        ValutaID = valutaID;
     }
 }

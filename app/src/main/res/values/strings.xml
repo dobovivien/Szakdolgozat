@@ -20,4 +20,5 @@
     <string name="categories">Kategóriák</string>
     <string name="settings">Beállítások</string>
     <string name="date">Szűrés dátum szerint</string>
+    <string name="valuta">Ft</string>
 </resources>

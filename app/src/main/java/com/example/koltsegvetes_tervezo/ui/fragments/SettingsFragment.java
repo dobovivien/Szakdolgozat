@@ -3,10 +3,12 @@ package com.example.koltsegvetes_tervezo.ui.fragments;
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -20,14 +22,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.koltsegvetes_tervezo.MainActivity;
 import com.example.koltsegvetes_tervezo.R;
+import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
+import com.example.koltsegvetes_tervezo.ui.entities.Ertesites;
+import com.example.koltsegvetes_tervezo.ui.entities.Valutak;
+import com.example.koltsegvetes_tervezo.utils.Valuta;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
     private SettingsViewModel mViewModel;
+    AppDatabase database;
     private Button notification;
+    private FloatingActionButton valutaValtas;
+    private TextView valasztottValuta;
+    private Switch allandoValutaSwitch;
+    private String[] valutakList = {"Ft", "Eur", "Usd", "Din"};
+    private List<Valutak> valutak = new ArrayList<>();
+    int defaultSelectedPosition = 0;
+    int valutaSelect;
     View view;
 
     public static SettingsFragment newInstance() {
@@ -48,24 +70,32 @@ public class SettingsFragment extends Fragment {
 
         view = getView();
         notification = view.findViewById(R.id.notificationButton);
+        valutaValtas = view.findViewById(R.id.valutaChangeButton);
+        valasztottValuta = view.findViewById(R.id.valutaChangeTextView);
+        allandoValutaSwitch = view.findViewById(R.id.allandoValutaSwitch);
+
+//        if (!allandoValutaSwitch.isChecked()) {
+//            valutaValtas.setEnabled(false);
+//        } else {
+//            valutaValtas.setEnabled(true);
+//        }
+
+        database = AppDatabase.getInstance(getActivity().getApplication());
 
         notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CharSequence name = "NAMEEE";
-                String description = "DESCRIPTIOON";
+
+                //Notification
+                CharSequence name = "NAME";
+                String description = "DESCRIPTION";
+
                 int importance = NotificationManager.IMPORTANCE_DEFAULT;
                 NotificationChannel channel = new NotificationChannel(getString(R.string.app_name), name, importance);
                 channel.setDescription(description);
-                // Register the channel with the system; you can't change the importance
-                // or other notification behaviors after this
+
                 NotificationManager notificationManager = getContext().getSystemService(NotificationManager.class);
-//                NotificationManager notificationManager = (NotificationManager)
-//                        getContext().getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.createNotificationChannel(channel);
-
-
-
 
                 Intent intent1 = new Intent(getContext(), MainActivity.class);
                 intent1.putExtra("fragmentName", "TranzakcioAddFragment");
@@ -87,6 +117,37 @@ public class SettingsFragment extends Fragment {
                 notificationManager.notify(1, builder.build());
             }
         });
-    }
 
+        valutaValtas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
+                builder.setTitle("Valuta kiválasztása");
+                builder.setCancelable(false);
+
+                builder.setSingleChoiceItems(valutakList,  defaultSelectedPosition, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        defaultSelectedPosition = which;
+                    }
+                });
+
+                builder.setPositiveButton("Kiválaszt", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        valasztottValuta.setText(valutakList[defaultSelectedPosition]);
+                        Valuta.valuta = valutakList[defaultSelectedPosition];
+                    }
+                });
+
+                builder.setNegativeButton("Mégse", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
+    }
 }
