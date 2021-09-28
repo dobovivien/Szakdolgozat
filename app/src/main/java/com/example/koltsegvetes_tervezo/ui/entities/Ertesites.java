@@ -12,8 +12,8 @@ import static androidx.room.ForeignKey.CASCADE;
 
 
 @Entity (foreignKeys = { @ForeignKey(entity = Kategoria.class, parentColumns = "ID", childColumns = "KategoriaID", onDelete = CASCADE),
-                        @ForeignKey(entity = AlKategoria.class, parentColumns = "ID", childColumns = "AlKategoriaID", onDelete = CASCADE),
-                        @ForeignKey(entity = Valutak.class, parentColumns = "ID", childColumns = "ValutaID", onDelete = CASCADE)})
+                         @ForeignKey(entity = AlKategoria.class, parentColumns = "ID", childColumns = "AlKategoriaID", onDelete = CASCADE),
+                         @ForeignKey(entity = Valutak.class, parentColumns = "ID", childColumns = "ValutaID", onDelete = CASCADE)})
 
 public class Ertesites {
 

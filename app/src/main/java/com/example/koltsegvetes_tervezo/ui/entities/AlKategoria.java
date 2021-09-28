@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity (foreignKeys = @ForeignKey(entity = Kategoria.class, parentColumns = "ID", childColumns = "KategoriaID", onDelete = CASCADE))
+
 public class AlKategoria {
 
     @PrimaryKey (autoGenerate = true)

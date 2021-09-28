@@ -3,6 +3,7 @@ package com.example.koltsegvetes_tervezo.ui.fragments;
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -22,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -42,14 +44,19 @@ public class SettingsFragment extends Fragment {
 
     private SettingsViewModel mViewModel;
     AppDatabase database;
+    public int euro = 359;
+    public int dollar = 307;
+    public int dinar = 3;
     private Button notification;
-    private FloatingActionButton valutaValtas;
-    private TextView valasztottValuta;
-    private Switch allandoValutaSwitch;
-    private String[] valutakList = {"Ft", "Eur", "Usd", "Din"};
-    private List<Valutak> valutak = new ArrayList<>();
-    int defaultSelectedPosition = 0;
-    int valutaSelect;
+    private EditText euroEditText;
+    private EditText dollarEditText;
+    private EditText dinarEditText;
+    private Button euroOkButton;
+    private Button dollarOkButton;
+    private Button dinarOkButton;
+    private TextView euroTextView;
+    private TextView dollarTextView;
+    private TextView dinarTextView;
     View view;
 
     public static SettingsFragment newInstance() {
@@ -62,25 +69,30 @@ public class SettingsFragment extends Fragment {
         return inflater.inflate(R.layout.settings_fragment, container, false);
     }
 
+    @SuppressLint({"CutPasteId", "SetTextI18n"})
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
-        // TODO: Use the ViewModel
 
         view = getView();
-        notification = view.findViewById(R.id.notificationButton);
-        valutaValtas = view.findViewById(R.id.valutaChangeButton);
-        valasztottValuta = view.findViewById(R.id.valutaChangeTextView);
-        allandoValutaSwitch = view.findViewById(R.id.allandoValutaSwitch);
 
-//        if (!allandoValutaSwitch.isChecked()) {
-//            valutaValtas.setEnabled(false);
-//        } else {
-//            valutaValtas.setEnabled(true);
-//        }
+        notification = view.findViewById(R.id.notificationButton);
+        euroEditText = view.findViewById(R.id.euroArfolyamEditText);
+        dollarEditText = view.findViewById(R.id.dollarArfolyamEditText);
+        dinarEditText = view.findViewById(R.id.dinarArfolyamEditText);
+        euroOkButton = view.findViewById(R.id.euroOkButton);
+        dollarOkButton = view.findViewById(R.id.dollarOkButton);
+        dinarOkButton = view.findViewById(R.id.dinarOkButton);
+        euroTextView = view.findViewById(R.id.euroTextView);
+        dollarTextView = view.findViewById(R.id.dollarTextView);
+        dinarTextView = view.findViewById(R.id.dinarTextView);
 
         database = AppDatabase.getInstance(getActivity().getApplication());
+
+        euroTextView.setText(database.arfolyamDao().selectArfolyamByValutaName("Euro") + " Ft");
+        dollarTextView.setText(database.arfolyamDao().selectArfolyamByValutaName("Dollár") + " Ft");
+        dinarTextView.setText(database.arfolyamDao().selectArfolyamByValutaName("Dinár") + " Ft");
 
         notification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,35 +130,36 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        valutaValtas.setOnClickListener(new View.OnClickListener() {
+        euroOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
-                builder.setTitle("Valuta kiválasztása");
-                builder.setCancelable(false);
+                Float e = Float.parseFloat(String.valueOf(euroEditText.getText()));
+                euro = Math.round(e);
+                database.arfolyamDao().update(euro, "Euro");
+                euroTextView.setText(euro + "Ft");
+                euroEditText.setText("");
+            }
+        });
 
-                builder.setSingleChoiceItems(valutakList,  defaultSelectedPosition, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        defaultSelectedPosition = which;
-                    }
-                });
+        dollarOkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Float d = Float.parseFloat(String.valueOf(euroEditText.getText()));
+                dollar = Math.round(d);
+                database.arfolyamDao().update(dollar, "Dollár");
+                dollarTextView.setText(dollar + " Ft");
+                dollarEditText.setText("");
+            }
+        });
 
-                builder.setPositiveButton("Kiválaszt", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        valasztottValuta.setText(valutakList[defaultSelectedPosition]);
-                        Valuta.valuta = valutakList[defaultSelectedPosition];
-                    }
-                });
-
-                builder.setNegativeButton("Mégse", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
+        dinarOkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Float di = Float.parseFloat(String.valueOf(euroEditText.getText()));
+                dinar = Math.round(di);
+                database.arfolyamDao().update(dinar, "Dinár");
+                dinarTextView.setText(dinar + " Ft");
+                dinarEditText.setText("");
             }
         });
     }

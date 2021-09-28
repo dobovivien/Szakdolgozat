@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.example.koltsegvetes_tervezo.ui.entities.AlKategoria;
 import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
+import com.example.koltsegvetes_tervezo.ui.entities.Arfolyam;
 import com.example.koltsegvetes_tervezo.ui.entities.Ertesites;
 import com.example.koltsegvetes_tervezo.ui.entities.Kategoria;
 import com.example.koltsegvetes_tervezo.ui.entities.Valutak;
@@ -80,8 +81,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         fromBottom = AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim);
 
-
-
         hozzaadButton = findViewById(R.id.hozzaadButton);
         hozzaadButton.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -89,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             viewPager.setCurrentItem(2);
             onAddButtonClicked();
         }});
-
 
         BottomBarPagerAdapter bottomBarPagerAdapter = new BottomBarPagerAdapter(getSupportFragmentManager(), 1);
         viewPager = (ViewPager) findViewById(R.id.fragmentHolder);
@@ -99,9 +97,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         bottomBarPagerAdapter.AddFragment(statisticsFragment);
         bottomBarPagerAdapter.AddFragment(settingsFragment);
 
-
         viewPager.setAdapter(bottomBarPagerAdapter);
-
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")
@@ -206,16 +202,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         Valutak usd = new Valutak(3, "Usd");
         Valutak din = new Valutak(4, "Din");
 
-        List<Kategoria> kategoriaLiveData = database.kategoriaDao().getAll();
-        List<AlKategoria> alKategoriaLiveData = database.alKategoriaDao().getAll();
-        List<Valutak> valutaLiveData = database.valutakDao().getAll();
+        Arfolyam euro = new Arfolyam("Euro", 359);
+        Arfolyam dollar = new Arfolyam("Dollár", 307);
+        Arfolyam dinar = new Arfolyam("Dinár", 3);
 
-        if (kategoriaLiveData.isEmpty()) {
+        List<Kategoria> kategoriaData = database.kategoriaDao().getAll();
+        List<AlKategoria> alKategoriaData = database.alKategoriaDao().getAll();
+        List<Valutak> valutaData = database.valutakDao().getAll();
+        List<Arfolyam> arfolyamData = database.arfolyamDao().getAll();
+
+        if (kategoriaData.isEmpty()) {
             database.kategoriaDao().insert(bevetel);
             database.kategoriaDao().insert(kiadas);
         }
 
-        if (alKategoriaLiveData.isEmpty()) {
+        if (alKategoriaData.isEmpty()) {
             database.alKategoriaDao().insert(fizetes);
             database.alKategoriaDao().insert(ajandek);
             database.alKategoriaDao().insert(juttatas);
@@ -250,11 +251,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             database.alKategoriaDao().insert(egyeb2);
         }
 
-        if (valutaLiveData.isEmpty()) {
+        if (valutaData.isEmpty()) {
             database.valutakDao().insert(ft);
             database.valutakDao().insert(eur);
             database.valutakDao().insert(usd);
             database.valutakDao().insert(din);
+        }
+
+        if (arfolyamData.isEmpty()) {
+            database.arfolyamDao().insert(euro);
+            database.arfolyamDao().insert(dollar);
+            database.arfolyamDao().insert(dinar);
         }
     }
 }

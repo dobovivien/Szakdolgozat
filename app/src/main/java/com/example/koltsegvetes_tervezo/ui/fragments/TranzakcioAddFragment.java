@@ -3,6 +3,7 @@ package com.example.koltsegvetes_tervezo.ui.fragments;
 import android.app.DatePickerDialog;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,7 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
     Spinner kategoriaSpinner;
     Spinner alKategoriaSpinner;
     Spinner valutaSpinner;
+    int spinnerDefault = 0;
     ImageView tooltip;
     CheckBox allandoCheckBox;
     ArrayList<CustomItem> kategoriaCustomList;
@@ -161,11 +163,13 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
                     String kategoria = ((CustomItem) kategoriaSpinner.getSelectedItem()).getSpinnerItemName();
                     String alkategoria = ((CustomItem) alKategoriaSpinner.getSelectedItem()).getSpinnerItemName();
                     int ossz = Integer.parseInt(osszegEditText.getText().toString());
+                    String valuta = valutaSpinner.getSelectedItem().toString();
                     String megj = megjegyzesEditText.getText().toString().trim();
                     Tranzakcio t = new Tranzakcio();
                     t.setKategoriaID(database.kategoriaDao().getKategoriaByName(kategoria).getID());
                     t.setAlKategoriaID(database.alKategoriaDao().getAlKategoriaByName(alkategoria).getID());
                     t.setOsszeg(ossz);
+                    t.setValutaID(database.valutakDao().getValutaByName(valuta).getID());
                     t.setMegjegyzes(megj);
                     DateFormat dateFormat = SimpleDateFormat.getDateInstance();
                     Date d = null;
@@ -228,6 +232,7 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, valutaList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 valutaSpinner.setAdapter(adapter);
+                valutaSpinner.setSelection(spinnerDefault);
             }
         };
         valutaMutableLiveData.observe(getViewLifecycleOwner(), valutaObserver);
