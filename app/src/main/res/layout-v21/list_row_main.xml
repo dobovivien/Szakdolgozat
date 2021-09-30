@@ -16,44 +16,65 @@
 
         <TextView
             android:id="@+id/tranzListTextView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:text="1000"
             android:textSize="28sp"
             android:textColor="@color/white"/>
 
-        <ImageView
-            android:id="@+id/editImageView"
+        <TextView
+            android:id="@+id/valutaTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/ic_edit"/>
-
-        <ImageView
-            android:id="@+id/deleteImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/ic_delete" />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="valuta"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
         tools:ignore="ExtraText">
 
+        <ImageView
+            android:id="@+id/editImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="290dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_edit"/>
+
+        <ImageView
+            android:id="@+id/deleteImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_delete" />
+
+        <TextView
+            android:id="@+id/megjegyzesTextView"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/white"
+            android:text="megjegyzes"/>
+
         <TextView
             android:id="@+id/tranzakcioKategoriaListTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="70dp"
+            android:text="alkategoria"
             android:layout_weight="1"
             android:textSize="14sp"
             android:textColor="@color/white"/>
@@ -62,12 +83,12 @@
             android:id="@+id/tranzakcioDatumListTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:layout_marginEnd="65dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginLeft="150dp"
             android:layout_weight="1"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

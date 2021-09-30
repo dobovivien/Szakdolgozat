@@ -15,7 +15,7 @@ import com.example.koltsegvetes_tervezo.ui.DAO.TranzakcioDao;
 import com.example.koltsegvetes_tervezo.ui.DAO.ValutakDao;
 import com.example.koltsegvetes_tervezo.utils.Converters;
 
-@Database(entities = {Tranzakcio.class, Kategoria.class, AlKategoria.class, Valutak.class, Ertesites.class, Arfolyam.class}, version = 6, exportSchema = false)
+@Database(entities = {Tranzakcio.class, Kategoria.class, AlKategoria.class, Valutak.class, Ertesites.class, Arfolyam.class}, version = 8, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 

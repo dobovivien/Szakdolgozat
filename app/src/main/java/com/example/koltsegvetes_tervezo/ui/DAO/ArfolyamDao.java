@@ -28,5 +28,8 @@ public interface ArfolyamDao {
 
     @Query("UPDATE Arfolyam SET valutaArfolyam = :valutaArfolyam WHERE valutaNev = :valutanev")
     void update (int valutaArfolyam, String valutanev);
+
+    @Query("SELECT valutaArfolyam FROM Arfolyam WHERE valutaRovidNev = :valutaRovidNev")
+    int selectArfolyamByVvalutaRovidNev(String valutaRovidNev);
 }
 

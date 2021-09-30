@@ -29,8 +29,8 @@ public interface TranzakcioDao {
     void reset (List<Tranzakcio> tranzakcioList);
 
     //Update query
-    @Query("UPDATE tranzakcio SET KategoriaID = :sKategoriaID, AlKategoriaID = :sAlKategoriaID, Osszeg = :sOsszeg, Datum = :sDatum, Megjegyzes = :sMegjegyzes WHERE ID = :sID ")
-    void update (int sID, int sKategoriaID, int sAlKategoriaID, int sOsszeg, Date sDatum, String sMegjegyzes);
+    @Query("UPDATE tranzakcio SET KategoriaID = :sKategoriaID, AlKategoriaID = :sAlKategoriaID, Osszeg = :sOsszeg, ValutaID = :sValutaID, Datum = :sDatum, Megjegyzes = :sMegjegyzes WHERE ID = :sID ")
+    void update (int sID, int sKategoriaID, int sAlKategoriaID, int sOsszeg, int sValutaID, Date sDatum, String sMegjegyzes);
 
     //Get all data query
     @Query("SELECT * FROM Tranzakcio")
@@ -46,11 +46,19 @@ public interface TranzakcioDao {
     List<Tranzakcio> getTransactionByCategory (int KategoriaID);
 
     @Query("SELECT SUM(Osszeg) FROM Tranzakcio WHERE AlKategoriaID = :AlKategoriaID")
-    Integer getTransactionByAlCategory (int AlKategoriaID);
+    Integer getOsszegByAlCategory(int AlKategoriaID);
 
     @Query("SELECT SUM(Osszeg) FROM Tranzakcio WHERE AlKategoriaID = :AlKategoriaID AND Datum = :Datum")
     Integer getTransactionByAlCategoryAndDate (int AlKategoriaID, Date Datum);
 
     @Query("SELECT SUM(Osszeg) FROM Tranzakcio WHERE AlKategoriaID = :AlKategoriaID AND Datum BETWEEN :StartDatum AND :EndDatum")
-    Integer getTransactionByAlCategoryAndDateInterval (int AlKategoriaID, Date StartDatum, Date EndDatum);
+    Integer getOsszegByAlCategoryAndDateInterval(int AlKategoriaID, Date StartDatum, Date EndDatum);
+
+    @Query("SELECT * FROM Tranzakcio WHERE AlKategoriaID = :AlKategoriaID")
+    List<Tranzakcio> getTransactionByAlCategory (int AlKategoriaID);
+
+    @Query("SELECT * FROM Tranzakcio WHERE AlKategoriaID = :AlKategoriaID AND Datum BETWEEN :StartDatum AND :EndDatum")
+    List<Tranzakcio> getTransacitonByAlCategoryAndDateInterval(int AlKategoriaID, Date StartDatum, Date EndDatum);
+
+
 }

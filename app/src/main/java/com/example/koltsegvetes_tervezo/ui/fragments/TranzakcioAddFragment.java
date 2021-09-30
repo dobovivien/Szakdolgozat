@@ -1,8 +1,10 @@
 package com.example.koltsegvetes_tervezo.ui.fragments;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -43,7 +45,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
 
     private TranzakcioAddViewModel mViewModel;
     View view;
@@ -104,13 +106,31 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
         valutaSpinner = view.findViewById(R.id.valutaSpinner);
         alKategoriaSpinner.setEnabled(false);
         tooltip = view.findViewById(R.id.allandoTooltip);
-        tooltip.setTooltipText("Amennyiben szeretne emlékeztetőt kapni a tranzakció rögzítéséről, jelölje be a négyzetet!");
+//        tooltip.setTooltipText("Amennyiben szeretne emlékeztetőt kapni a tranzakció rögzítéséről, jelölje be a négyzetet!");
         allandoCheckBox = view.findViewById(R.id.allandoCheckBox);
         kategoriaCustomList = getKategoriaCustomList();
         valutaList = database.valutakDao().getAllValutaName();
 
         NotificationManager manager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancelAll();
+
+        tooltip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
+                builder.setTitle("Rendszeres tranzakció");
+                builder.setMessage("Amennyiben szeretne havi emlékeztetőt kapni a tranzakció rögzítéséről, jelölje be a négyzetet! (Később módosíthatja és törölheti is az emlékeztetőt.)");
+
+                builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
+        }
+    });
+
 
         datumButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,7 +252,6 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, valutaList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 valutaSpinner.setAdapter(adapter);
-                valutaSpinner.setSelection(spinnerDefault);
             }
         };
         valutaMutableLiveData.observe(getViewLifecycleOwner(), valutaObserver);
@@ -286,5 +305,15 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

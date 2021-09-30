@@ -1,12 +1,10 @@
 package com.example.koltsegvetes_tervezo.ui.fragments;
 
-import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,16 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.anychart.scales.DateTime;
 import com.example.koltsegvetes_tervezo.R;
 import com.example.koltsegvetes_tervezo.ui.entities.AlKategoria;
 import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
 import com.example.koltsegvetes_tervezo.ui.entities.Kategoria;
-import com.github.mikephil.charting.animation.Easing;
+import com.example.koltsegvetes_tervezo.ui.entities.Tranzakcio;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -47,7 +42,6 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -56,11 +50,9 @@ import java.time.Month;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -361,20 +353,30 @@ public class StatisticsFragment extends Fragment {
 
     @SuppressLint({"NotifyDataSetChanged", "SetTextI18n", "SimpleDateFormat"})
     public HashMap<String, Integer> osszegzesAlkategorianket() {
-        StringBuilder stringBuilder = new StringBuilder();
         SimpleDateFormat sdt = new SimpleDateFormat("yyyy.MM.dd.");
         ZoneId zoneID = ZoneId.systemDefault();
         LocalDate now = LocalDate.now();
         HashMap<String, Integer> tranzMap = new HashMap<String, Integer>();
         List<AlKategoria> alkategoriak = database.alKategoriaDao().getAlkategoriaByKategoriaId(katID);
         for (int i = 0; i < alkategoriak.size(); i++) {
-            Integer test = null;
+            Integer osszeg = 0;
             switch (dateSelect) {
-                case 0:
-                    test = database.tranzakcioDao().getTransactionByAlCategory(alkategoriak.get(i).getID());
+                case 0: {
+                    List<Tranzakcio> tranzakciok = database.tranzakcioDao().getTransactionByAlCategory(alkategoriak.get(i).getID());
+                    for (int j = 0; j < tranzakciok.size(); j++) {
+                        if (tranzakciok.get(j).getValutaID() != 1) {
+                            int valutaID = tranzakciok.get(j).getValutaID();
+                            String valutaNev = database.valutakDao().getValutaNameByID(valutaID);
+                            int arfolyam = database.arfolyamDao().selectArfolyamByVvalutaRovidNev(valutaNev);
+                            osszeg += tranzakciok.get(j).getOsszeg() * arfolyam;
+                        } else {
+                            osszeg += tranzakciok.get(j).getOsszeg();
+                        }
+                    }
                     valasztottDatumTextView.setText("Mindenkori");
                     break;
-                case 1:
+                }
+                case 1: {
                     LocalDateTime currentDate = LocalDateTime.now();
                     Month month = currentDate.getMonth();
                     int startDay = 1;
@@ -388,10 +390,21 @@ public class StatisticsFragment extends Fragment {
                     Date endDate = Date.from(endD.toInstant());
                     java.sql.Date startSqlDate = new java.sql.Date(startDate.getTime());
                     java.sql.Date endSqlDate = new java.sql.Date(endDate.getTime());
-                    test = database.tranzakcioDao().getTransactionByAlCategoryAndDateInterval(alkategoriak.get(i).getID(), startSqlDate, endSqlDate);
+                    List<Tranzakcio> tranzakciok = database.tranzakcioDao().getTransacitonByAlCategoryAndDateInterval(alkategoriak.get(i).getID(), startSqlDate, endSqlDate);
+                    for (int j = 0; j < tranzakciok.size(); j++) {
+                        if (tranzakciok.get(j).getValutaID() != 1) {
+                            int valutaID = tranzakciok.get(j).getValutaID();
+                            String valutaNev = database.valutakDao().getValutaNameByID(valutaID);
+                            int arfolyam = database.arfolyamDao().selectArfolyamByVvalutaRovidNev(valutaNev);
+                            osszeg += tranzakciok.get(j).getOsszeg() * arfolyam;
+                        } else {
+                            osszeg += tranzakciok.get(j).getOsszeg();
+                        }
+                    }
                     valasztottDatumTextView.setText(sdt.format(startSqlDate) + " - " + sdt.format(endSqlDate));
                     break;
-                case 2:
+                }
+                case 2: {
                     DayOfWeek firstDayOfWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
                     LocalDate startOfCurrentWeek = now.with(TemporalAdjusters.previousOrSame(firstDayOfWeek));
                     DayOfWeek lastDayOfWeek = firstDayOfWeek.plus(6);
@@ -402,10 +415,21 @@ public class StatisticsFragment extends Fragment {
                     Date endDay2 = Date.from(zE.toInstant());
                     java.sql.Date startSqlDay = new java.sql.Date(startDay2.getTime());
                     java.sql.Date endSqlDay = new java.sql.Date(endDay2.getTime());
-                    test = database.tranzakcioDao().getTransactionByAlCategoryAndDateInterval(alkategoriak.get(i).getID(), startSqlDay, endSqlDay);
+                    List<Tranzakcio> tranzakciok = database.tranzakcioDao().getTransacitonByAlCategoryAndDateInterval(alkategoriak.get(i).getID(), startSqlDay, endSqlDay);
+                    for (int j = 0; j < tranzakciok.size(); j++) {
+                        if (tranzakciok.get(j).getValutaID() != 1) {
+                            int valutaID = tranzakciok.get(j).getValutaID();
+                            String valutaNev = database.valutakDao().getValutaNameByID(valutaID);
+                            int arfolyam = database.arfolyamDao().selectArfolyamByVvalutaRovidNev(valutaNev);
+                            osszeg += tranzakciok.get(j).getOsszeg() * arfolyam;
+                        } else {
+                            osszeg += tranzakciok.get(j).getOsszeg();
+                        }
+                    }
                     valasztottDatumTextView.setText(sdt.format(startSqlDay) + " - " + sdt.format(endSqlDay));
                     break;
-                case 3:
+                }
+                case 3: {
                     LocalDate today = LocalDate.now(zoneID);
                     LocalDate sameDayLastWeek = today.minusWeeks(1);
                     DayOfWeek firstDayOfPreviousWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
@@ -418,12 +442,23 @@ public class StatisticsFragment extends Fragment {
                     Date prevWeekEndDay = Date.from(zE2.toInstant());
                     java.sql.Date prevStartSqlDay = new java.sql.Date(prevWeekStartDay.getTime());
                     java.sql.Date prevEndSqlDay = new java.sql.Date(prevWeekEndDay.getTime());
-                    test = database.tranzakcioDao().getTransactionByAlCategoryAndDateInterval(alkategoriak.get(i).getID(), prevStartSqlDay, prevEndSqlDay);
+                    List<Tranzakcio> tranzakciok = database.tranzakcioDao().getTransacitonByAlCategoryAndDateInterval(alkategoriak.get(i).getID(), prevStartSqlDay, prevEndSqlDay);
+                    for (int j = 0; j < tranzakciok.size(); j++) {
+                        if (tranzakciok.get(j).getValutaID() != 1) {
+                            int valutaID = tranzakciok.get(j).getValutaID();
+                            String valutaNev = database.valutakDao().getValutaNameByID(valutaID);
+                            int arfolyam = database.arfolyamDao().selectArfolyamByVvalutaRovidNev(valutaNev);
+                            osszeg += tranzakciok.get(j).getOsszeg() * arfolyam;
+                        } else {
+                            osszeg += tranzakciok.get(j).getOsszeg();
+                        }
+                    }
                     valasztottDatumTextView.setText(sdt.format(prevStartSqlDay) + " - " + sdt.format(prevEndSqlDay));
                     break;
+                }
             }
-            if (test != null) {
-                tranzMap.put(alkategoriak.get(i).getAlKategoriaNev(), test);
+            if (osszeg > 0) {
+                tranzMap.put(alkategoriak.get(i).getAlKategoriaNev(), osszeg);
             }
         }
         return tranzMap;

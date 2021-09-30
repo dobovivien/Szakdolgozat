@@ -61,10 +61,12 @@ public class TranzakcioListAdapter extends RecyclerView.Adapter<TranzakcioListAd
         String s = "+" + (t.getOsszeg());
         //set text on textview
         holder.tranzListTextView.setText(String.valueOf(t.getOsszeg()));
+        holder.valutaTextView.setText(database.valutakDao().getValutaNameByID(tranzakcio.getValutaID()));
         holder.kategoriaTextView.setText(String.valueOf(a.getAlKategoriaNev()));
         if (t.getKategoriaID() == 1) {
             holder.tranzListTextView.setText(s);
             holder.tranzListTextView.setTextColor(R.color.turkiz2);
+            holder.valutaTextView.setTextColor(R.color.turkiz2);
         }
         String strDate = "";
         if (t.getDatum() != null)
@@ -72,27 +74,29 @@ public class TranzakcioListAdapter extends RecyclerView.Adapter<TranzakcioListAd
             DateFormat dateFormat = SimpleDateFormat.getDateInstance();
             strDate = dateFormat.format(t.getDatum());
         }
+        holder.megjegyzesTextView.setText(tranzakcio.getMegjegyzes());
         holder.datumTextView.setText(strDate);
-        holder.editImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //init tranzakcio data
-                Tranzakcio t = tranzakcioList.get(holder.getAdapterPosition());
-                final int sID = t.getID();
-                final int sKategoria = t.getKategoriaID();
-                final int sAlKategoroia = t.getAlKategoriaID();
-                final int sOsszeg = t.getOsszeg();
-                final Date sDatum = t.getDatum();
-                final String sMegjegyzes = t.getMegjegyzes();
-
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.tranzakcio_update_fragment);
-                int width = WindowManager.LayoutParams.MATCH_PARENT;
-                int height = WindowManager.LayoutParams.WRAP_CONTENT;
-                dialog.getWindow().setLayout(width, height);
-                dialog.show();
-            }
-        });
+//        holder.editImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //init tranzakcio data
+//                Tranzakcio t = tranzakcioList.get(holder.getAdapterPosition());
+//                final int sID = t.getID();
+//                final int sKategoria = t.getKategoriaID();
+//                final int sAlKategoroia = t.getAlKategoriaID();
+//                final int sOsszeg = t.getOsszeg();
+////                final int sValuta = t.getValutaID();
+//                final Date sDatum = t.getDatum();
+//                final String sMegjegyzes = t.getMegjegyzes();
+//
+//                final Dialog dialog = new Dialog(context);
+//                dialog.setContentView(R.layout.tranzakcio_update_fragment);
+//                int width = WindowManager.LayoutParams.MATCH_PARENT;
+//                int height = WindowManager.LayoutParams.WRAP_CONTENT;
+//                dialog.getWindow().setLayout(width, height);
+//                dialog.show();
+//            }
+//        });
 
         holder.deleteImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +120,7 @@ public class TranzakcioListAdapter extends RecyclerView.Adapter<TranzakcioListAd
                 Bundle b = new Bundle();
                 b.putInt("id", t.getID());
                 b.putInt("osszeg", t.getOsszeg());
+                b.putString("valuta", database.valutakDao().getValutaNameByID(t.getValutaID()));
                 b.putString("kategoria", database.kategoriaDao().getKategoriaNameByID(t.getKategoriaID()));
                 b.putString("alkategoria", database.alKategoriaDao().getAlkategoriaById(t.getAlKategoriaID()).getAlKategoriaNev());
                 b.putString("datum", t.getDatum().toString());
@@ -136,8 +141,10 @@ public class TranzakcioListAdapter extends RecyclerView.Adapter<TranzakcioListAd
 
         //Init variable
         TextView tranzListTextView;
+        TextView valutaTextView;
         ImageView editImageView;
         ImageView deleteImageView;
+        TextView megjegyzesTextView;
         TextView kategoriaTextView;
         TextView datumTextView;
 
@@ -146,8 +153,10 @@ public class TranzakcioListAdapter extends RecyclerView.Adapter<TranzakcioListAd
 
             //Assign variables
             tranzListTextView = itemView.findViewById(R.id.tranzListTextView);
+            valutaTextView = itemView.findViewById(R.id.valutaTextView);
             editImageView = itemView.findViewById(R.id.editImageView);
             deleteImageView = itemView.findViewById(R.id.deleteImageView);
+            megjegyzesTextView = itemView.findViewById(R.id.megjegyzesTextView);
             kategoriaTextView = itemView.findViewById(R.id.tranzakcioKategoriaListTextView);
             datumTextView = itemView.findViewById(R.id.tranzakcioDatumListTextView);
         }

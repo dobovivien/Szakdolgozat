@@ -24,7 +24,13 @@ public interface ValutakDao {
     List<String> getAllValutaName();
 
     @Query("SELECT * FROM Valutak WHERE ValutaNev = :name LIMIT 1")
-    Kategoria getValutaByName(String name);
+    Valutak getValutaByName(String name);
+
+    @Query("SELECT * FROM Valutak WHERE ValutaNev = :name LIMIT 1")
+    int getValutaIDByName(String name);
+
+    @Query("SELECT ValutaNev FROM Valutak WHERE ID = :ID")
+    String getValutaNameByID(int ID);
 
     @Query("SELECT * FROM Valutak")
     LiveData<List<Valutak>> selectAllValuta();

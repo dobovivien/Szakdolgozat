@@ -21,126 +21,79 @@
             android:text="@string/add_transaction"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            android:textSize="32dp" />
 
         <Spinner
             android:id="@+id/kategoriaSpinner"
-            android:layout_width="280dp"
+            android:layout_width="340dp"
             android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="130dp"
             android:backgroundTint="@color/gray2"
-            android:dropDownWidth="match_parent"
-            android:popupBackground="#838383"
-            android:textColor="@color/gray3"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/alKategoriSpinner"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hozzaadTextView"
-            app:layout_constraintVertical_bias="0.647" />
+            android:textSize="20dp"/>
 
         <Spinner
             android:id="@+id/alKategoriSpinner"
-            android:layout_width="280dp"
+            android:layout_width="340dp"
             android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="210dp"
-            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/gray2"
-            android:dropDownWidth="match_parent"
-            android:popupBackground="@color/gray1"
-            android:textColor="@color/gray3"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/osszegEditText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textSize="20dp"/>
 
 
         <EditText
             android:id="@+id/osszegEditText"
-            android:layout_width="200dp"
+            android:layout_width="220dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginTop="290dp"
-            android:ems="10"
             android:hint="@string/amount"
             android:inputType="numberDecimal"
             android:textColor="@color/white"
             android:textColorHint="@color/gray3"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hozzaadTextView"
-            tools:ignore="MissingConstraints" />
+            android:textSize="20dp" />
 
         <Spinner
             android:id="@+id/valutaSpinner"
-            android:layout_width="70dp"
+            android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="275dp"
+            android:layout_marginLeft="255dp"
             android:layout_marginTop="290dp"
-            android:popupBackground="@color/gray1"
-            android:textColor="@color/gray3"/>
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/datumButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="45dp"
             android:layout_marginTop="370dp"
             app:backgroundTint="@color/turkiz1"
             app:icon="@drawable/ic_calendar"
-            app:iconTint="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/megjegyzesEditText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.183"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/osszegEditText"
-            tools:ignore="MissingConstraints" />
+            app:iconTint="@color/white" />
 
         <TextView
             android:id="@+id/datumTextView"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_marginLeft="165dp"
+            android:layout_marginLeft="145dp"
             android:layout_marginTop="385dp"
             android:inputType="date"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/megjegyzesEditText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.225"
-            app:layout_constraintStart_toEndOf="@+id/datumButton"
-            app:layout_constraintTop_toBottomOf="@+id/osszegEditText"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="MissingConstraints" />
+            android:textSize="20dp" />
 
         <EditText
             android:id="@+id/megjegyzesEditText"
-            android:layout_width="280dp"
+            android:layout_width="340dp"
             android:layout_height="54dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="450dp"
-            android:ems="10"
             android:hint="@string/comment"
             android:inputType="text"
             android:textColor="@color/white"
             android:textColorHint="@color/gray3"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/tranzakcioAddButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints" />
+            android:textSize="20dp" />
 
         <CheckBox
             android:id="@+id/allandoCheckBox"
@@ -174,11 +127,6 @@
             android:layout_marginTop="650dp"
             android:text="@string/add"
             app:backgroundTint="@color/turkiz2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.805"
             android:textSize="20dp"/>
 
     </RelativeLayout>

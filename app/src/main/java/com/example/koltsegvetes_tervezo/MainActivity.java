@@ -202,9 +202,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         Valutak usd = new Valutak(3, "Usd");
         Valutak din = new Valutak(4, "Din");
 
-        Arfolyam euro = new Arfolyam("Euro", 359);
-        Arfolyam dollar = new Arfolyam("Dollár", 307);
-        Arfolyam dinar = new Arfolyam("Dinár", 3);
+        Arfolyam euro = new Arfolyam("Eur", "Euro", 359);
+        Arfolyam dollar = new Arfolyam("Usd", "Dollár", 307);
+        Arfolyam dinar = new Arfolyam("Din", "Dinár", 3);
 
         List<Kategoria> kategoriaData = database.kategoriaDao().getAll();
         List<AlKategoria> alKategoriaData = database.alKategoriaDao().getAll();
