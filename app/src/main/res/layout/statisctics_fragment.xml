@@ -77,6 +77,14 @@
         android:textColor="@color/white"
         android:textSize="30dp" />
 
+    <ImageView
+        android:id="@+id/tooltip"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="350dp"
+        android:layout_marginTop="188dp"
+        android:src="@drawable/ic_info" />
+
     <TextView
         android:id="@+id/selectedDateTextView"
         android:layout_width="350dp"

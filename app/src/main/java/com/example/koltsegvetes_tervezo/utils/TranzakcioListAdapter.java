@@ -2,7 +2,9 @@ package com.example.koltsegvetes_tervezo.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -76,38 +78,34 @@ public class TranzakcioListAdapter extends RecyclerView.Adapter<TranzakcioListAd
         }
         holder.megjegyzesTextView.setText(tranzakcio.getMegjegyzes());
         holder.datumTextView.setText(strDate);
-//        holder.editImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //init tranzakcio data
-//                Tranzakcio t = tranzakcioList.get(holder.getAdapterPosition());
-//                final int sID = t.getID();
-//                final int sKategoria = t.getKategoriaID();
-//                final int sAlKategoroia = t.getAlKategoriaID();
-//                final int sOsszeg = t.getOsszeg();
-////                final int sValuta = t.getValutaID();
-//                final Date sDatum = t.getDatum();
-//                final String sMegjegyzes = t.getMegjegyzes();
-//
-//                final Dialog dialog = new Dialog(context);
-//                dialog.setContentView(R.layout.tranzakcio_update_fragment);
-//                int width = WindowManager.LayoutParams.MATCH_PARENT;
-//                int height = WindowManager.LayoutParams.WRAP_CONTENT;
-//                dialog.getWindow().setLayout(width, height);
-//                dialog.show();
-//            }
-//        });
 
         holder.deleteImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Tranzakcio t = tranzakcioList.get(holder.getAdapterPosition());
-                database.tranzakcioDao().delete(t);
-                int position = holder.getAdapterPosition();
-                tranzakcioList.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, tranzakcioList.size());
-                Toast.makeText(context, "Tranzakció törölve!", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), R.style.MyDialogTheme);
+                builder.setMessage("Biztosan törölni szeretné?");
+
+                builder.setPositiveButton("Törlés", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Tranzakcio t = tranzakcioList.get(holder.getAdapterPosition());
+                        database.tranzakcioDao().delete(t);
+                        int position = holder.getAdapterPosition();
+                        tranzakcioList.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, tranzakcioList.size());
+                        Toast.makeText(context, "Tranzakció törölve!", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+
+                builder.setNegativeButton("Mégse", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
             }
         });
 

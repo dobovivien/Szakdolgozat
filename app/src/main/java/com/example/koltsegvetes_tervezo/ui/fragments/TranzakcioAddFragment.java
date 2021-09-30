@@ -106,7 +106,6 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
         valutaSpinner = view.findViewById(R.id.valutaSpinner);
         alKategoriaSpinner.setEnabled(false);
         tooltip = view.findViewById(R.id.allandoTooltip);
-//        tooltip.setTooltipText("Amennyiben szeretne emlékeztetőt kapni a tranzakció rögzítéséről, jelölje be a négyzetet!");
         allandoCheckBox = view.findViewById(R.id.allandoCheckBox);
         kategoriaCustomList = getKategoriaCustomList();
         valutaList = database.valutakDao().getAllValutaName();

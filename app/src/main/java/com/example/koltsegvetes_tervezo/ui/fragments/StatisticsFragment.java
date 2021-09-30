@@ -73,6 +73,7 @@ public class StatisticsFragment extends Fragment {
     Button oszlopdGomb;
     Button vonaldGomb;
     Button valtasGomb;
+    ImageView tooltip;
     BarChart barChart;
     PieChart pieChart;
     LineChart lineChart;
@@ -121,6 +122,7 @@ public class StatisticsFragment extends Fragment {
         oszlopdGomb = view.findViewById(R.id.barGraphButton);
         vonaldGomb = view.findViewById(R.id.lineGraphButton);
         valtasGomb = view.findViewById(R.id.sourceChangeButton);
+        tooltip = view.findViewById(R.id.tooltip);
         dateFilter = view.findViewById(R.id.dateFilterTextView);
         dateFilterItems = new String[] {"Mind", "Aktuális hónap", "Aktuális hét", "Előző hét"};
 
@@ -139,6 +141,24 @@ public class StatisticsFragment extends Fragment {
         adapter = new StatisticsAdapter(getActivity(), tranzakcioList);
 
         alkategoriaRecyclerView.setAdapter(adapter);
+
+        tooltip.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
+
+               builder.setTitle("Info");
+               builder.setMessage("Az alábbi kimutatásokban és összesítésekben minden tranzakció az alapértelmezett valutában (Forint) szerepel. A váltó árfolyamról a Beállításokban tájékozódhat, illetve módosíthatja azokat.");
+
+               builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which) {
+                       dialog.dismiss();
+                   }
+               });
+               builder.show();
+           }
+       });
 
 
         valtasGomb.setOnClickListener(new View.OnClickListener() {

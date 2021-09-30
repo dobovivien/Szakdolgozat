@@ -18,6 +18,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +35,10 @@ import com.example.koltsegvetes_tervezo.MainActivity;
 import com.example.koltsegvetes_tervezo.R;
 import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
 import com.example.koltsegvetes_tervezo.ui.entities.Ertesites;
+import com.example.koltsegvetes_tervezo.ui.entities.Tranzakcio;
 import com.example.koltsegvetes_tervezo.ui.entities.Valutak;
+import com.example.koltsegvetes_tervezo.utils.SettingsAdapter;
+import com.example.koltsegvetes_tervezo.utils.TranzakcioListAdapter;
 import com.example.koltsegvetes_tervezo.utils.Valuta;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -42,6 +47,7 @@ import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
+    View view;
     private SettingsViewModel mViewModel;
     AppDatabase database;
     public int euro = 359;
@@ -57,7 +63,11 @@ public class SettingsFragment extends Fragment {
     private TextView euroTextView;
     private TextView dollarTextView;
     private TextView dinarTextView;
-    View view;
+
+    RecyclerView ertesitesListaReciclerView;
+    ArrayList<Ertesites> ertesitesek = new ArrayList<>();
+    LinearLayoutManager linearLayoutManager;
+    SettingsAdapter adapter;
 
     public static SettingsFragment newInstance() {
         return new SettingsFragment();
@@ -77,6 +87,21 @@ public class SettingsFragment extends Fragment {
 
         view = getView();
 
+        ertesitesListaReciclerView = view.findViewById(R.id.settingsReciclerView);
+
+        database = AppDatabase.getInstance(getActivity().getApplication());
+
+        ertesitesek = (ArrayList<Ertesites>) database.ertesitesDao().getAll();
+
+        linearLayoutManager = new LinearLayoutManager(getActivity().getApplication());
+
+        ertesitesListaReciclerView.setLayoutManager(linearLayoutManager);
+
+        adapter = new SettingsAdapter(getActivity(), ertesitesek);
+
+        ertesitesListaReciclerView.setAdapter(adapter);
+        ertesitesListaReciclerView.setNestedScrollingEnabled(false);
+
         notification = view.findViewById(R.id.notificationButton);
         euroEditText = view.findViewById(R.id.euroArfolyamEditText);
         dollarEditText = view.findViewById(R.id.dollarArfolyamEditText);
@@ -87,8 +112,6 @@ public class SettingsFragment extends Fragment {
         euroTextView = view.findViewById(R.id.euroTextView);
         dollarTextView = view.findViewById(R.id.dollarTextView);
         dinarTextView = view.findViewById(R.id.dinarTextView);
-
-        database = AppDatabase.getInstance(getActivity().getApplication());
 
         euroTextView.setText(database.arfolyamDao().selectArfolyamByValutaName("Euro") + " Ft");
         dollarTextView.setText(database.arfolyamDao().selectArfolyamByValutaName("Dollár") + " Ft");
@@ -162,5 +185,14 @@ public class SettingsFragment extends Fragment {
                 dinarEditText.setText("");
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ertesitesek = (ArrayList<Ertesites>) database.ertesitesDao().getAll();
+        adapter = new SettingsAdapter(getActivity(), ertesitesek);
+        ertesitesListaReciclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }
