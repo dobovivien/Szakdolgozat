@@ -148,6 +148,7 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
                     int ossz = Integer.parseInt(osszegEditText.getText().toString());
                     String valuta = valutaSpinner.getSelectedItem().toString();
                     String megj = megjegyzesEditText.getText().toString().trim();
+                    int nap = 0;
 
                     Tranzakcio t = new Tranzakcio();
                     t.setKategoriaID(database.kategoriaDao().getKategoriaByName(kategoria).getID());
@@ -161,15 +162,20 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
                     ertesites.setOsszeg(ossz);
                     ertesites.setValutaID(database.valutakDao().getValutaByName(valuta).getID());
                     ertesites.setMegjegyzes(megj);
+                    ertesites.setBekapcsolva(true);
                     DateFormat dateFormat = SimpleDateFormat.getDateInstance();
                     Date d = null;
+                    SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("d");
                     try {
                         d = dateFormat.parse(datumTextView.getText().toString());
+                        Date d1 = dateFormat.parse(datumTextView.getText().toString());
+                        String date1 = simpleDateFormat1.format(d1);
+                        nap = Integer.parseInt(date1);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     t.setDatum(d);
-                    ertesites.setDatum(d);
+                    ertesites.setDatum(nap);
                     database.tranzakcioDao().insert(t);
                     database.ertesitesDao().insert(ertesites);
                     osszegEditText.setText("");

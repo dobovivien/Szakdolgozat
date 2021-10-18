@@ -24,7 +24,10 @@ public interface ErtesitesDao {
 
     //Update query
     @Query("UPDATE ertesites SET Datum = :sDatum WHERE ID = :sID ")
-    void updateDate (Date sDatum, int sID);
+    void updateDate (int sDatum, int sID);
+
+    @Query("UPDATE ertesites SET Bekapcsolva = :sBekapcsolva WHERE ID = :sID ")
+    void updateBekapcsolva (boolean sBekapcsolva, int sID);
 
     //Insert query
     @Insert(onConflict = REPLACE)
@@ -36,4 +39,7 @@ public interface ErtesitesDao {
 
     @Query("SELECT * FROM Ertesites")
     LiveData<List<Ertesites>> selectAllErtesites();
+
+    @Query("SELECT Datum FROM Ertesites WHERE ID = :sID")
+    int getErtesitesDatum(int sID);
 }

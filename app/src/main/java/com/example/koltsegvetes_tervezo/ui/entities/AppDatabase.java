@@ -11,11 +11,12 @@ import com.example.koltsegvetes_tervezo.ui.DAO.AlKategoriaDao;
 import com.example.koltsegvetes_tervezo.ui.DAO.ArfolyamDao;
 import com.example.koltsegvetes_tervezo.ui.DAO.ErtesitesDao;
 import com.example.koltsegvetes_tervezo.ui.DAO.KategoriaDao;
+import com.example.koltsegvetes_tervezo.ui.DAO.MegtakaritasDao;
 import com.example.koltsegvetes_tervezo.ui.DAO.TranzakcioDao;
 import com.example.koltsegvetes_tervezo.ui.DAO.ValutakDao;
 import com.example.koltsegvetes_tervezo.utils.Converters;
 
-@Database(entities = {Tranzakcio.class, Kategoria.class, AlKategoria.class, Valutak.class, Ertesites.class, Arfolyam.class}, version = 8, exportSchema = false)
+@Database(entities = {Tranzakcio.class, Kategoria.class, AlKategoria.class, Valutak.class, Ertesites.class, Arfolyam.class, Megtakaritas.class}, version = 12, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -40,5 +41,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ErtesitesDao ertesitesDao();
     public abstract ValutakDao valutakDao();
     public abstract ArfolyamDao arfolyamDao();
+    public abstract MegtakaritasDao megtakaritasDao();
 
 }

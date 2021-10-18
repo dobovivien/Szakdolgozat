@@ -1,52 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.HomeFragment">
+    android:layout_width="wrap_content"
+    android:layout_height="650dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
-        android:fontFamily="sans-serif-thin"
-        android:text="Aktuális egyenlegem"
-        android:textAlignment="center"
-        android:textColor="@color/gray1"
-        android:textSize="25dp" />
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="650dp"
+        tools:context=".ui.fragments.HomeFragment">
 
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="150dp"
-        android:src="@drawable/kor6"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
+            android:fontFamily="sans-serif-thin"
+            android:text="Aktuális egyenlegem"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
 
-    <ImageView
-        android:layout_width="265dp"
-        android:layout_height="265dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="168dp"
-        android:src="@drawable/ragyogas2" />
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="150dp"
+            android:src="@drawable/kor6"/>
 
-    <ImageView
-        android:layout_width="315dp"
-        android:layout_height="315dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="143dp"
-        android:src="@drawable/ragyogas3" />
+        <ImageView
+            android:layout_width="265dp"
+            android:layout_height="265dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="168dp"
+            android:src="@drawable/ragyogas2" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="275dp"
-        android:fontFamily="sans-serif-thin"
-        android:text="1000 Ft"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="40sp" />
+        <ImageView
+            android:layout_width="315dp"
+            android:layout_height="315dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="143dp"
+            android:src="@drawable/ragyogas3" />
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/egyenlegTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="275dp"
+            android:fontFamily="sans-serif-thin"
+            android:text="1000 Ft"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="40sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="490dp"
+            android:layout_marginLeft="20dp"
+            android:text="Egyenlegem a levont megtakarításokkal:"
+            android:textSize="20dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/egynelegMegtakaritassalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="540dp"
+            android:layout_marginLeft="20dp"
+            android:text="1000 Ft"
+            android:textSize="25dp"
+            android:textColor="@color/white"/>
+        <Button
+            android:id="@+id/sporolasButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="190dp"
+            android:text="Új megtakarítás hozzáadása"
+            android:layout_marginTop="530dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/megtakaritasRecycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="590dp"
+            android:orientation="horizontal"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/megtakaritas_card_view" />
+
+    </FrameLayout>
+
+</ScrollView>

@@ -23,11 +23,12 @@ public class Ertesites {
     private int AlKategoriaID;
     private int Osszeg;
     private int ValutaID;
-    private Date Datum;
+    private int Datum;
     private String Megjegyzes;
+    private boolean Bekapcsolva;
 
     //constructor
-    public Ertesites(int ID, int KategoriaID, int AlKategoriaID, int Osszeg, int ValutaID, Date Datum, String Megjegyzes) {
+    public Ertesites(int ID, int KategoriaID, int AlKategoriaID, int Osszeg, int ValutaID, int Datum, String Megjegyzes, boolean Bekapcsolva) {
         this.ID = ID;
         this.KategoriaID = KategoriaID;
         this.AlKategoriaID = AlKategoriaID;
@@ -35,6 +36,7 @@ public class Ertesites {
         this.ValutaID = ValutaID;
         this.Datum = Datum;
         this.Megjegyzes = Megjegyzes;
+        this.Bekapcsolva = Bekapcsolva;
     }
 
     public Ertesites() {
@@ -43,8 +45,9 @@ public class Ertesites {
         this.AlKategoriaID = 0;
         this.Osszeg = 0;
         this.ValutaID = 0;
-        this.Datum = null;
+        this.Datum = 1;
         this.Megjegyzes = "";
+        this.Bekapcsolva = true;
     }
 
     public int getID() {
@@ -79,11 +82,11 @@ public class Ertesites {
         Osszeg = osszeg;
     }
 
-    public Date getDatum() {
+    public int getDatum() {
         return Datum;
     }
 
-    public void setDatum(Date datum) {
+    public void setDatum(int datum) {
         Datum = datum;
     }
 
@@ -101,5 +104,13 @@ public class Ertesites {
 
     public void setValutaID(int valutaID) {
         ValutaID = valutaID;
+    }
+
+    public boolean isBekapcsolva() {
+        return Bekapcsolva;
+    }
+
+    public void setBekapcsolva(boolean bekapcsolva) {
+        Bekapcsolva = bekapcsolva;
     }
 }

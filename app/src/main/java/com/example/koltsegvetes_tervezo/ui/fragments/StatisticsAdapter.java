@@ -37,7 +37,6 @@ public class StatisticsAdapter extends RecyclerView.Adapter<StatisticsAdapter.Vi
     //Initialize variables
     private HashMap<String, Integer> tranzakcioList;
     private final Activity context;
-    private AppDatabase database;
     private int sum;
 
 
@@ -61,7 +60,6 @@ public class StatisticsAdapter extends RecyclerView.Adapter<StatisticsAdapter.Vi
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         String alkategoria = tranzakcioList.keySet().toArray()[position].toString();
         final int tranzakcio = tranzakcioList.get(alkategoria);
-        database = AppDatabase.getInstance(context);
 
         holder.osszegTextView.setText(String.valueOf(tranzakcio + " Ft"));
         holder.alKategoriaImageView.setImageResource(ResourceHandler.getResourceID(alkategoria));

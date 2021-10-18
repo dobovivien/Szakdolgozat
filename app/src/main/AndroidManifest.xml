@@ -12,16 +12,20 @@
         android:theme="@style/Theme.Koltsegvetes_tervezo.NoActionBar"
         tools:replace="android:label">
         <activity
+            android:name=".MegtakaridasAddActivity"
+            android:exported="true" />
+        <activity
             android:name=".SplashActivity"
-            android:theme = "@style/NoActionBar">
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".TranzakcioUpdateActivity" />
 
         <meta-data

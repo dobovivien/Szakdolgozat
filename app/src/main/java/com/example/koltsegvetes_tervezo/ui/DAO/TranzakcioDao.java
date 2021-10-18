@@ -48,6 +48,9 @@ public interface TranzakcioDao {
     @Query("SELECT SUM(Osszeg) FROM Tranzakcio WHERE AlKategoriaID = :AlKategoriaID")
     Integer getOsszegByAlCategory(int AlKategoriaID);
 
+    @Query("SELECT SUM(Osszeg) FROM Tranzakcio WHERE KategoriaID = :KategoriaID")
+    Integer getOsszegByCategory(int KategoriaID);
+
     @Query("SELECT SUM(Osszeg) FROM Tranzakcio WHERE AlKategoriaID = :AlKategoriaID AND Datum = :Datum")
     Integer getTransactionByAlCategoryAndDate (int AlKategoriaID, Date Datum);
 

@@ -226,14 +226,14 @@
         android:textColor="@color/black"
         android:textSize="25dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/settingsReciclerView"
-        android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="590dp"
-        tools:listitem="@layout/ertesites_cardview"
-        android:nestedScrollingEnabled="false" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/settingsReciclerView"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="590dp"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/ertesites_cardview" />
 
     <Button
         android:id="@+id/notificationButton"
