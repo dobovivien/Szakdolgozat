@@ -20,4 +20,11 @@
     <color name="gray1">#616161</color>
     <color name="gray2">#FF303030</color>
     <color name="gray3">#878686</color>
+    <color name="gray4">#D0CFD0</color>
+    <color name="gray5">#E9E9E9</color>
+    <color name="green">#8BC34A</color>
+    <color name="rose">#FD9DA2</color>
+    <color name="yellow2">#FDEA29</color>
+    <color name="blue">#47D3BA</color>
+    <color name="purple2">#9757A0</color>
 </resources>

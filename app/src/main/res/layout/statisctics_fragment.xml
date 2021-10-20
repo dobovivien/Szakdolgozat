@@ -7,44 +7,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.StatisticsFragment"
-    android:background="@color/gray1">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <Button
+        <ImageView
             android:id="@+id/pieChartButton"
             android:layout_width="65dp"
-            android:layout_height="60dp"
-            app:icon="@drawable/ic_piechart"
+            android:layout_height="65dp"
+            android:src="@drawable/ic_piechart"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="30dp"
             app:cornerRadius="15dp" />
 
-        <Button
+        <ImageView
             android:id="@+id/barGraphButton"
             android:layout_width="65dp"
-            android:layout_height="60dp"
-            app:icon="@drawable/ic_barchart"
+            android:layout_height="65dp"
+            android:src="@drawable/ic_barchart"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="30dp"
             app:cornerRadius="15dp"/>
 
-        <Button
+        <ImageView
             android:id="@+id/lineGraphButton"
             android:layout_width="65dp"
-            android:layout_height="60dp"
-            app:icon="@drawable/ic_linegraph"
+            android:layout_height="65dp"
+            android:src="@drawable/ic_linegraph"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="30dp"
             app:cornerRadius="15dp"/>
 
-        <Button
+        <ImageView
             android:id="@+id/sourceChangeButton"
             android:layout_width="65dp"
             android:layout_height="60dp"
-            app:icon="@drawable/ic_dollar"
+            android:src="@drawable/ic_dollar"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -58,7 +58,7 @@
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
-        android:background="@color/gray3"
+        android:background="@color/gray5"
         android:drawablePadding="20dp"
         android:hint="@string/date"
         android:padding="15dp"
@@ -74,7 +74,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="175dp"
         android:textAlignment="center"
-        android:textColor="@color/white"
         android:textSize="30dp" />
 
     <ImageView
@@ -92,7 +91,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="220dp"
         android:textAlignment="center"
-        android:textColor="@color/white"
         android:textSize="15dp" />
 
     <com.github.mikephil.charting.charts.BarChart
@@ -101,7 +99,7 @@
         android:layout_height="350dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="240dp"
-        android:background="@color/gray1" />
+        android:background="@color/white" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
@@ -117,7 +115,7 @@
         android:layout_height="350dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="240dp"
-        android:background="@color/gray1" />
+        android:background="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tranzakciokRecyclerview"

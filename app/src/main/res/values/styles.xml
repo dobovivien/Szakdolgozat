@@ -3,7 +3,7 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/turkiz2</item>
+        <item name="colorPrimary">@color/rose</item>
     </style>
 
     <style name = "NoActionBar" parent = "Theme.AppCompat.NoActionBar">
@@ -12,13 +12,13 @@
     </style>
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@color/gray1</item>
+        <item name="android:background">@color/gray4</item>
     </style>
 
     <style name="DatePicker" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">@color/turkiz2</item>
-        <item name="colorPrimaryDark">@color/turkiz3</item>
-        <item name="colorAccent">@color/turkiz4</item>
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/rose</item>
+        <item name="colorAccent">@color/purple2</item>
     </style>
 
 </resources>

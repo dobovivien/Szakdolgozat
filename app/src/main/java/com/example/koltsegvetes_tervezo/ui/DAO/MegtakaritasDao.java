@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface MegtakaritasDao {
 
-    @Query("SELECT * FROM Megtakaritas ORDER BY Datum DESC")
+    @Query("SELECT * FROM Megtakaritas ORDER BY Datum ASC")
     List<Megtakaritas> getAll();
 
     @Insert(onConflict = REPLACE)

@@ -17,7 +17,7 @@
         android:drawablePadding="20dp"
         android:hint="@string/categories"
         android:padding="15dp"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/gray2"
         android:textSize="15dp"
         app:drawableEndCompat="@drawable/ic_down" />
 

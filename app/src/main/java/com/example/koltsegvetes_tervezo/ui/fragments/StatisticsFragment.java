@@ -69,10 +69,10 @@ public class StatisticsFragment extends Fragment {
     TextView valasztottDatumTextView;
     RecyclerView alkategoriaRecyclerView;
     StatisticsAdapter adapter;
-    Button kordGomb;
-    Button oszlopdGomb;
-    Button vonaldGomb;
-    Button valtasGomb;
+    ImageView kordGomb;
+    ImageView oszlopdGomb;
+    ImageView vonaldGomb;
+    ImageView valtasGomb;
     ImageView tooltip;
     BarChart barChart;
     PieChart pieChart;

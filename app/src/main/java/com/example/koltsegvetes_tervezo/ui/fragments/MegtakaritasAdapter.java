@@ -227,7 +227,7 @@ public class MegtakaritasAdapter extends RecyclerView.Adapter<MegtakaritasAdapte
         });
 
         if (megtakaritas.getMegtekintve()) {
-            holder.megtakaritasImageView.setImageResource(R.drawable.ic_check_circle_outline);
+            holder.megtakaritasImageView.setImageResource(R.drawable.ic_check);
         }
 
         if (megtakaritas.getJelenlegiOsszeg() == megtakaritas.getCelOsszeg() && !megtakaritas.getMegtekintve()) {
@@ -276,8 +276,8 @@ public class MegtakaritasAdapter extends RecyclerView.Adapter<MegtakaritasAdapte
         TextView celDatumTextView;
         ProgressBar progressBar;
         TextView minMaxTextView;
-        Button osszegHozzaadButton;
-        Button osszegLevonButton;
+        ImageView osszegHozzaadButton;
+        ImageView osszegLevonButton;
         ImageView megtakaritasImageView;
 
         public ViewHolder(@NonNull View itemView) {

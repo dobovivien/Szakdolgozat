@@ -5,9 +5,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/app_logo2"
+        android:icon="@drawable/logo_f"
         android:label="Finance"
-        android:roundIcon="@drawable/app_logo2"
+        android:roundIcon="@drawable/logo_f"
         android:supportsRtl="true"
         android:theme="@style/Theme.Koltsegvetes_tervezo.NoActionBar"
         tools:replace="android:label">
@@ -27,6 +27,15 @@
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".TranzakcioUpdateActivity" />
+
+        <service
+            android:name = ".NotificationService"
+            android:label = "@string/app_name" >
+            <intent-filter>
+                <action android:name = "app.tutorialspoint.com.notifyme.NotificationService" />
+                <category android:name= "android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="preloaded_fonts"

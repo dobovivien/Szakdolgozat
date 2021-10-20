@@ -37,9 +37,12 @@ public interface ErtesitesDao {
     @Query("SELECT * FROM Ertesites")
     List<Ertesites> getAll();
 
-    @Query("SELECT * FROM Ertesites")
-    LiveData<List<Ertesites>> selectAllErtesites();
+    @Query("SELECT Datum FROM Ertesites")
+    List<Integer> getAllErtesitesDatum();
 
     @Query("SELECT Datum FROM Ertesites WHERE ID = :sID")
     int getErtesitesDatum(int sID);
+
+    @Query("SELECT AlKategoriaNev FROM Ertesites, AlKategoria WHERE AlKategoriaID = :alKategoriaID")
+    String getAlkategoria(int alKategoriaID);
 }

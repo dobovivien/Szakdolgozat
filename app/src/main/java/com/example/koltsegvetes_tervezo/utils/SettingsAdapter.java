@@ -3,14 +3,7 @@ package com.example.koltsegvetes_tervezo.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,24 +12,16 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.koltsegvetes_tervezo.MainActivity;
 import com.example.koltsegvetes_tervezo.R;
 import com.example.koltsegvetes_tervezo.ResourceHandler;
-import com.example.koltsegvetes_tervezo.ui.entities.AlKategoria;
 import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
 import com.example.koltsegvetes_tervezo.ui.entities.Ertesites;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder>{
@@ -44,8 +29,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     private final List<Ertesites> ertesitesList;
     private Activity context;
     private AppDatabase database;
-    private static final int SECRET_KEY = 99;
-
 
     //constructor
     public SettingsAdapter(Activity context, List<Ertesites> ertesitesList) {
@@ -68,7 +51,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         final Ertesites ertesites = ertesitesList.get(position);
         database = AppDatabase.getInstance(context);
 
-        Ertesites ert = ertesitesList.get(holder.getAdapterPosition());
         holder.alkategoriaSettingTextView.setText(database.alKategoriaDao().getAlkategoriaNameById(ertesites.getAlKategoriaID()));
         holder.alKategoriaSettingImageView.setImageResource(ResourceHandler.getResourceID(database.alKategoriaDao().getAlkategoriaNameById(ertesites.getAlKategoriaID())));
         holder.ertesitesIdejeTextView.setText("Minden hónap " + database.ertesitesDao().getErtesitesDatum(ertesites.getID()) + ". napján.");
@@ -144,34 +126,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                 if (isChecked) {
                     holder.editSettingImageView.setEnabled(true);
                     holder.ertesitesIdejeTextView.setEnabled(true);
-                    CharSequence name = "NAME";
-                    String description = "DESCRIPTION";
-
-                    int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                    NotificationChannel channel = new NotificationChannel(String.valueOf(R.string.app_name), name, importance);
-                    channel.setDescription(description);
-
-                    NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-                    notificationManager.createNotificationChannel(channel);
-
-                    Intent intent1 = new Intent(context, MainActivity.class);
-                    intent1.putExtra("fragmentName", "TranzakcioAddFragment");
-                    intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent1, PendingIntent.FLAG_ONE_SHOT);
-
-                    Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(context, String.valueOf(R.string.app_name));
-
-                    builder.setContentTitle("Ertesites");
-                    builder.setContentText("Ez egy proba notification.");
-                    builder.setSmallIcon(R.drawable.ic_notification);
-                    builder.setSound(uri);
-                    builder.setAutoCancel(true);
-                    builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                    builder.addAction(R.drawable.ic_launcher_foreground, "Yes", pendingIntent);
-                    builder.setContentIntent(pendingIntent);
-                    notificationManager.notify(1, builder.build());
                 } else {
                     holder.editSettingImageView.setEnabled(false);
                     holder.ertesitesIdejeTextView.setEnabled(false);
@@ -184,7 +138,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     public int getItemCount() {
         return ertesitesList.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

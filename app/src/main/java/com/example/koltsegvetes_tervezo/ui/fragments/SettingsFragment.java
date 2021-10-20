@@ -4,7 +4,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -37,12 +41,18 @@ import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
 import com.example.koltsegvetes_tervezo.ui.entities.Ertesites;
 import com.example.koltsegvetes_tervezo.ui.entities.Tranzakcio;
 import com.example.koltsegvetes_tervezo.ui.entities.Valutak;
+import com.example.koltsegvetes_tervezo.utils.ReminderBroadcast;
 import com.example.koltsegvetes_tervezo.utils.SettingsAdapter;
 import com.example.koltsegvetes_tervezo.utils.TranzakcioListAdapter;
 import com.example.koltsegvetes_tervezo.utils.Valuta;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class SettingsFragment extends Fragment {
@@ -63,6 +73,9 @@ public class SettingsFragment extends Fragment {
     private TextView euroTextView;
     private TextView dollarTextView;
     private TextView dinarTextView;
+
+    public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
+    private final static String default_notification_channel_id = "default" ;
 
     RecyclerView ertesitesListaReciclerView;
     ArrayList<Ertesites> ertesitesek = new ArrayList<>();
@@ -102,7 +115,6 @@ public class SettingsFragment extends Fragment {
         ertesitesListaReciclerView.setAdapter(adapter);
         ertesitesListaReciclerView.setNestedScrollingEnabled(false);
 
-        notification = view.findViewById(R.id.notificationButton);
         euroEditText = view.findViewById(R.id.euroArfolyamEditText);
         dollarEditText = view.findViewById(R.id.dollarArfolyamEditText);
         dinarEditText = view.findViewById(R.id.dinarArfolyamEditText);
@@ -117,72 +129,42 @@ public class SettingsFragment extends Fragment {
         dollarTextView.setText(database.arfolyamDao().selectArfolyamByValutaName("Dollár") + " Ft");
         dinarTextView.setText(database.arfolyamDao().selectArfolyamByValutaName("Dinár") + " Ft");
 
-        notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //Notification
-                CharSequence name = "NAME";
-                String description = "DESCRIPTION";
-
-                int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                NotificationChannel channel = new NotificationChannel(getString(R.string.app_name), name, importance);
-                channel.setDescription(description);
-
-                NotificationManager notificationManager = getContext().getSystemService(NotificationManager.class);
-                notificationManager.createNotificationChannel(channel);
-
-                Intent intent1 = new Intent(getContext(), MainActivity.class);
-                intent1.putExtra("fragmentName", "TranzakcioAddFragment");
-                intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent1, PendingIntent.FLAG_ONE_SHOT);
-
-                Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), getString(R.string.app_name));
-
-                builder.setContentTitle("Notification");
-                builder.setContentText("Ez egy proba notification.");
-                builder.setSmallIcon(R.drawable.ic_notification);
-                builder.setSound(uri);
-                builder.setAutoCancel(true);
-                builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                builder.addAction(R.drawable.ic_launcher_foreground, "Yes", pendingIntent);
-                builder.setContentIntent(pendingIntent);
-                notificationManager.notify(1, builder.build());
-            }
-        });
-
         euroOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Float e = Float.parseFloat(String.valueOf(euroEditText.getText()));
-                euro = Math.round(e);
-                database.arfolyamDao().update(euro, "Euro");
-                euroTextView.setText(euro + "Ft");
-                euroEditText.setText("");
+                if (!euroEditText.getText().toString().equals("")) {
+                    Float e = Float.parseFloat(String.valueOf(euroEditText.getText()));
+                    euro = Math.round(e);
+                    database.arfolyamDao().update(euro, "Euro");
+                    euroTextView.setText(euro + "Ft");
+                    euroEditText.setText("");
+                }
             }
         });
 
         dollarOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Float d = Float.parseFloat(String.valueOf(euroEditText.getText()));
-                dollar = Math.round(d);
-                database.arfolyamDao().update(dollar, "Dollár");
-                dollarTextView.setText(dollar + " Ft");
-                dollarEditText.setText("");
+                if (!dollarEditText.getText().toString().equals("")) {
+                    Float d = Float.parseFloat(String.valueOf(dollarEditText.getText()));
+                    dollar = Math.round(d);
+                    database.arfolyamDao().update(dollar, "Dollár");
+                    dollarTextView.setText(dollar + " Ft");
+                    dollarEditText.setText("");
+                }
             }
         });
 
         dinarOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Float di = Float.parseFloat(String.valueOf(euroEditText.getText()));
-                dinar = Math.round(di);
-                database.arfolyamDao().update(dinar, "Dinár");
-                dinarTextView.setText(dinar + " Ft");
-                dinarEditText.setText("");
+                if (!dinarEditText.getText().toString().equals("")) {
+                    Float di = Float.parseFloat(String.valueOf(dinarEditText.getText()));
+                    dinar = Math.round(di);
+                    database.arfolyamDao().update(dinar, "Dinár");
+                    dinarTextView.setText(dinar + " Ft");
+                    dinarEditText.setText("");
+                }
             }
         });
     }
@@ -195,4 +177,5 @@ public class SettingsFragment extends Fragment {
         ertesitesListaReciclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
 }

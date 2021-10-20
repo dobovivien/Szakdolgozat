@@ -39,9 +39,6 @@ public interface TranzakcioDao {
     @Query("SELECT * FROM Tranzakcio ORDER BY Datum DESC")
     List<Tranzakcio> getAllByDescDate();
 
-    @Query("SELECT * FROM Tranzakcio WHERE ID = :ID")
-    List<Tranzakcio> getTransacitonByID (int ID);
-
     @Query("SELECT * FROM Tranzakcio WHERE KategoriaID = :KategoriaID ORDER BY Datum DESC")
     List<Tranzakcio> getTransactionByCategory (int KategoriaID);
 

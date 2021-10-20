@@ -52,7 +52,7 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
     EditText osszegEditText;
     TextView datumTextView;
     EditText megjegyzesEditText;
-    Button datumButton;
+    ImageView datumButton;
     Button tranzakcioHozzaadButton;
     List<Tranzakcio> tranzakcioList = new ArrayList<Tranzakcio>();
     AppDatabase database;
@@ -254,7 +254,7 @@ public class TranzakcioAddFragment extends Fragment implements DatePickerDialog.
         Observer<ArrayList<String>> valutaObserver = new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> strings) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, valutaList);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, valutaList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 valutaSpinner.setAdapter(adapter);
             }
