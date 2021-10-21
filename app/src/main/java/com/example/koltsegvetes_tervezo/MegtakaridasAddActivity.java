@@ -3,11 +3,13 @@ package com.example.koltsegvetes_tervezo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.koltsegvetes_tervezo.ui.entities.AppDatabase;
@@ -25,7 +27,7 @@ public class MegtakaridasAddActivity extends AppCompatActivity {
     final Calendar calendar = Calendar.getInstance();
 
     EditText megnevezesEditText ;
-    Button datumButton;
+    ImageView datumButton;
     TextView datumTextView;
     EditText megtakaritasOsszegEditText;
     Button hozzaadButton;

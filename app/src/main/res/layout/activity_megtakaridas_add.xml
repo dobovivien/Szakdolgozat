@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray1">
+        android:background="@color/white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -16,7 +16,6 @@
             android:layout_marginTop="40dp"
             android:text="Megtakarítási cél meghatározása"
             android:textAlignment="center"
-            android:textColor="@color/white"
             android:textSize="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,18 +28,17 @@
             android:layout_marginLeft="40dp"
             android:layout_marginTop="170dp"
             android:hint="Megnevezés"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textColorHint="@color/gray3"
             android:textSize="20dp" />
 
-        <Button
+        <ImageView
             android:id="@+id/datumButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="250dp"
-            app:backgroundTint="@color/turkiz1"
-            app:icon="@drawable/ic_calendar" />
+            android:layout_marginTop="255dp"
+            android:src="@drawable/ic_calendar" />
 
         <TextView
             android:id="@+id/datumTextView"
@@ -49,7 +47,7 @@
             android:layout_marginLeft="145dp"
             android:layout_marginTop="260dp"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="25dp" />
 
         <EditText
@@ -60,7 +58,7 @@
             android:layout_marginTop="340dp"
             android:hint="@string/amount"
             android:inputType="numberDecimal"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textColorHint="@color/gray3"
             android:textSize="20dp" />
 
@@ -74,6 +72,7 @@
             android:layout_marginStart="44dp"
             android:layout_marginTop="1200dp"
             android:layout_marginEnd="200dp"
+            android:background="@drawable/bordered_button"
             android:text="@string/add"
             android:textAlignment="center"
             android:textSize="20dp" />
@@ -90,7 +89,8 @@
             android:onClick="cancel"
             android:text="@string/cancel"
             android:textAlignment="center"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:background="@drawable/bordered_button"/>
 
     </RelativeLayout>
 

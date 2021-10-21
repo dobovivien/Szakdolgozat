@@ -30,8 +30,14 @@ import com.example.koltsegvetes_tervezo.utils.TranzakcioListAdapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import pl.droidsonroids.gif.GifImageView;
 
 public class MegtakaritasAdapter extends RecyclerView.Adapter<MegtakaritasAdapter.ViewHolder> {
 
@@ -80,8 +86,7 @@ public class MegtakaritasAdapter extends RecyclerView.Adapter<MegtakaritasAdapte
         holder.progressBar.setProgress(megtakaritas.getJelenlegiOsszeg(), true);
         holder.minMaxTextView.setText(megtakaritas.getJelenlegiOsszeg() + "/" + megtakaritas.getCelOsszeg());
         String strDate = "";
-        if (megtakaritas.getDatum() != null)
-        {
+        if (megtakaritas.getDatum() != null) {
             DateFormat dateFormat = SimpleDateFormat.getDateInstance();
             strDate = dateFormat.format(megtakaritas.getDatum());
         }
@@ -131,7 +136,7 @@ public class MegtakaritasAdapter extends RecyclerView.Adapter<MegtakaritasAdapte
                                             editTextNumber.setError("Legfeljebb " + (megtakaritas.getCelOsszeg() - megtakaritas.getJelenlegiOsszeg()) + " Ft  összeget adhat meg!");
                                         } else {
                                             holder.progressBar.setMin(megtakaritas.getJelenlegiOsszeg() + osszeg);
-                                            database.megtakaritasDao().update(megtakaritas.getJelenlegiOsszeg()+osszeg);
+                                            database.megtakaritasDao().update(megtakaritas.getID(), megtakaritas.getJelenlegiOsszeg() + osszeg);
                                             updateMegtakaritasList();
                                             dialog.dismiss();
                                         }
@@ -169,28 +174,28 @@ public class MegtakaritasAdapter extends RecyclerView.Adapter<MegtakaritasAdapte
 
                 alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
-                     public void onShow(DialogInterface dialog) {
-                         Button modosit = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                          modosit.setOnClickListener(new View.OnClickListener() {
-                          @Override
-                          public void onClick(View v) {
-                              if (editTextNumber.getText().toString().equals("")) {
-                                  dialog.dismiss();
-                              } else {
-                                  int osszeg = Integer.parseInt(editTextNumber.getText().toString());
-                                  intent.putExtra("kivon", osszeg);
-                                  if (megtakaritas.getJelenlegiOsszeg() - osszeg < 0) {
-                                      editTextNumber.requestFocus();
-                                      editTextNumber.setError("Legfeljebb " + (megtakaritas.getJelenlegiOsszeg()) + " Ft összeget adhat meg!");
-                                  } else {
-                                      holder.progressBar.setMin(megtakaritas.getJelenlegiOsszeg() - osszeg);
-                                      database.megtakaritasDao().update(megtakaritas.getJelenlegiOsszeg() - osszeg);
-                                      updateMegtakaritasList();
-                                      dialog.dismiss();
-                                  }
-                              }
-                          }
-                      });
+                    public void onShow(DialogInterface dialog) {
+                        Button modosit = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                        modosit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (editTextNumber.getText().toString().equals("")) {
+                                    dialog.dismiss();
+                                } else {
+                                    int osszeg = Integer.parseInt(editTextNumber.getText().toString());
+                                    intent.putExtra("kivon", osszeg);
+                                    if (megtakaritas.getJelenlegiOsszeg() - osszeg < 0) {
+                                        editTextNumber.requestFocus();
+                                        editTextNumber.setError("Legfeljebb " + (megtakaritas.getJelenlegiOsszeg()) + " Ft összeget adhat meg!");
+                                    } else {
+                                        holder.progressBar.setMin(megtakaritas.getJelenlegiOsszeg() - osszeg);
+                                        database.megtakaritasDao().update(megtakaritas.getID(), megtakaritas.getJelenlegiOsszeg() - osszeg);
+                                        updateMegtakaritasList();
+                                        dialog.dismiss();
+                                    }
+                                }
+                            }
+                        });
                     }
                 });
                 alertDialog.show();
@@ -226,11 +231,19 @@ public class MegtakaritasAdapter extends RecyclerView.Adapter<MegtakaritasAdapte
             }
         });
 
-        if (megtakaritas.getMegtekintve()) {
-            holder.megtakaritasImageView.setImageResource(R.drawable.ic_check);
-        }
+        LocalDate now = LocalDate.now();
+        Date date = Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant());
+//        int currentYear = date.getYear();
+//        int currentMonth = date.getMonth();
+//        int currentDay = date.getDay();
+//        int celYear = megtakaritas.getDatum().getYear();
+//        int celMonth = megtakaritas.getDatum().getMonth();
+//        int celDay = megtakaritas.getDatum().;
 
-        if (megtakaritas.getJelenlegiOsszeg() == megtakaritas.getCelOsszeg() && !megtakaritas.getMegtekintve()) {
+        if (megtakaritas.getJelenlegiOsszeg() == megtakaritas.getCelOsszeg() && !megtakaritas.getMegtekintve() && !date.after(megtakaritas.getDatum())) {
+            holder.megtakaritasImageView.setImageResource(R.drawable.ic_check);
+            holder.osszegHozzaadButton.setEnabled(false);
+            holder.osszegLevonButton.setEnabled(false);
             AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
             LayoutInflater inflater = LayoutInflater.from(context);
             View dialogView = inflater.inflate(R.layout.sikeres_teljesites, null);
@@ -239,7 +252,7 @@ public class MegtakaritasAdapter extends RecyclerView.Adapter<MegtakaritasAdapte
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
 
-            final Handler handler  = new Handler();
+            final Handler handler = new Handler();
             final Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -256,7 +269,49 @@ public class MegtakaritasAdapter extends RecyclerView.Adapter<MegtakaritasAdapte
             });
 
             handler.postDelayed(runnable, 3000);
-            database.megtakaritasDao().updateMegtekintes(true);
+            database.megtakaritasDao().updateMegtekintes(megtakaritas.getID(),true);
+
+
+        } else if (megtakaritas.getJelenlegiOsszeg() < megtakaritas.getCelOsszeg() && !megtakaritas.getMegtekintve() && date.after(megtakaritas.getDatum())) {
+            holder.megtakaritasImageView.setImageResource(R.drawable.ic_cancel);
+            holder.osszegHozzaadButton.setEnabled(false);
+            holder.osszegLevonButton.setEnabled(false);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View dialogView = inflater.inflate(R.layout.sikertelen_teljesites, null);
+            builder.setView(dialogView);
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+            final Handler handler = new Handler();
+            final Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (alertDialog.isShowing()) {
+                        alertDialog.dismiss();
+                    }
+                }
+            };
+            alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    handler.removeCallbacks(runnable);
+                }
+            });
+
+            handler.postDelayed(runnable, 3000);
+            database.megtakaritasDao().updateMegtekintes(megtakaritas.getID(),true);
+        } else if (megtakaritas.getJelenlegiOsszeg() == megtakaritas.getCelOsszeg() && megtakaritas.getMegtekintve()) {
+            holder.megtakaritasImageView.setImageResource(R.drawable.ic_check);
+            holder.osszegHozzaadButton.setEnabled(false);
+            holder.osszegLevonButton.setEnabled(false);
+        } else if (megtakaritas.getJelenlegiOsszeg() < megtakaritas.getCelOsszeg() && megtakaritas.getMegtekintve() && date.after(megtakaritas.getDatum())) {
+            holder.megtakaritasImageView.setImageResource(R.drawable.ic_cancel);
+            holder.osszegHozzaadButton.setEnabled(false);
+            holder.osszegLevonButton.setEnabled(false);
+        } else {
+            holder.megtakaritasImageView.setImageResource(R.drawable.ic_trash);
         }
     }
 

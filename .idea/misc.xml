@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14635416666666667" />
+        <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/bordered_button.xml" value="0.1574074074074074" />
+        <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/button_border.xml" value="0.2703125" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/ic__103_confetti_outline.xml" value="0.2703125" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/ic__103_confetti_outline__1_.xml" value="0.2703125" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/ic_add.xml" value="0.14635416666666667" />
@@ -47,6 +49,8 @@
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/ic_plus2.xml" value="0.14635416666666667" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/ic_settings.xml" value="0.14635416666666667" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/drawable/ic_wallet.xml" value="0.14635416666666667" />
+        <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/font/.xml" value="0.284375" />
+        <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/font/source_sans_pro.xml" value="0.284375" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout-land/activity_tranzakcio_update.xml" value="0.21516754850088182" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout-land/tranzakcio_add_fragment.xml" value="0.11022927689594356" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout-v21/activity_main.xml" value="0.2" />
@@ -70,6 +74,7 @@
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/settings_ertesites_modosit.xml" value="0.25416666666666665" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/settings_fragment.xml" value="0.264" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/sikeres_teljesites.xml" value="0.25317028985507245" />
+        <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/sikertelen_teljesites.xml" value="0.264" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/spinner_color_layout.xml" value="0.13541666666666666" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/spinner_dropdown_layout.xml" value="0.2" />
         <entry key="..\:/Documents/Egyetem/Szakdoga/Szakdolgozat/app/src/main/res/layout/statisctics_fragment.xml" value="0.2" />

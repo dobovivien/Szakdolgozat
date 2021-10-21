@@ -24,11 +24,11 @@ public interface MegtakaritasDao {
     @Query("UPDATE megtakaritas SET Megnevezes = :megnevezes, CelOsszeg = :celosszeg, JelenlegiOsszeg = :jelenlegiosszeg, Datum = :datum")
     void update (String megnevezes, int celosszeg, int jelenlegiosszeg, Date datum);
 
-    @Query("UPDATE megtakaritas SET JelenlegiOsszeg = :jelenlegiosszeg")
-    void update (int jelenlegiosszeg);
+    @Query("UPDATE megtakaritas SET JelenlegiOsszeg = :jelenlegiosszeg WHERE ID = :id")
+    void update (int id, int jelenlegiosszeg);
 
-    @Query("UPDATE megtakaritas SET Megtekintve = :megtekintve")
-    void updateMegtekintes (boolean megtekintve);
+    @Query("UPDATE megtakaritas SET Megtekintve = :megtekintve WHERE ID = :id")
+    void updateMegtekintes (int id, boolean megtekintve);
 
     @Delete
     void delete (Megtakaritas megtakaritas);

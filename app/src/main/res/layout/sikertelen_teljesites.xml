@@ -6,12 +6,12 @@
     app:layout_constraintCircleRadius="20dp">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Cél sikeresen teljesítve!"
+        android:text="A kitűzött célt sajnos nem sikerült időben elérni."
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="25dp" />
 
@@ -19,8 +19,8 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="120dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/confetti" />
+        android:src="@drawable/dislike" />
 
 </RelativeLayout>
