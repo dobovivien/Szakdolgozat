@@ -67,8 +67,8 @@ public class TranzakcioListAdapter extends RecyclerView.Adapter<TranzakcioListAd
         holder.kategoriaTextView.setText(String.valueOf(a.getAlKategoriaNev()));
         if (t.getKategoriaID() == 1) {
             holder.tranzListTextView.setText(s);
-            holder.tranzListTextView.setTextColor(R.color.turkiz2);
-            holder.valutaTextView.setTextColor(R.color.turkiz2);
+            holder.tranzListTextView.setTextColor(R.color.green);
+            holder.valutaTextView.setTextColor(R.color.green);
         }
         String strDate = "";
         if (t.getDatum() != null)

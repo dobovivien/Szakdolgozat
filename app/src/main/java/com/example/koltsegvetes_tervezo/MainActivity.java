@@ -104,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (clicked) {
+                    clicked = !clicked;
+                    hozzaadButton.startAnimation(rotateClose);
+                }
                 switch (item.getItemId()) {
                     case R.id.home:
                         viewPager.setCurrentItem(0);
@@ -113,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         return true;
                     case R.id.placeholder:
                         viewPager.setCurrentItem(2);
+                        bottomNavigationView.setItemIconTintList(null);
                         return true;
                     case R.id.statistics:
                         viewPager.setCurrentItem(3);

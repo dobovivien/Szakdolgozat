@@ -2,12 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:screenOrientation="portrait">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray1">
+        android:background="@color/white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,7 +47,7 @@
             android:layout_marginTop="290dp"
             android:hint="@string/amount"
             android:inputType="numberDecimal"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textColorHint="@color/gray3"
             android:textSize="20dp" />
 
@@ -57,14 +58,14 @@
             android:layout_marginLeft="255dp"
             android:layout_marginTop="290dp" />
 
-        <Button
+        <ImageView
             android:id="@+id/datumUpdateButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="45dp"
             android:layout_marginTop="370dp"
-            app:backgroundTint="@color/turkiz1"
-            app:icon="@drawable/ic_calendar" />
+            android:src="@drawable/ic_calendar"
+            app:backgroundTint="@color/turkiz1" />
 
         <TextView
             android:id="@+id/datumUpdateTextView"
@@ -73,7 +74,7 @@
             android:layout_marginLeft="145dp"
             android:layout_marginTop="385dp"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20dp" />
 
         <EditText
@@ -84,7 +85,7 @@
             android:layout_marginTop="450dp"
             android:hint="@string/description"
             android:inputType="text"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textColorHint="@color/gray3"
             android:textSize="20dp" />
 
@@ -101,7 +102,8 @@
             android:onClick="edit"
             android:text="@string/edit"
             android:textAlignment="center"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:background="@drawable/bordered_button"/>
 
         <Button
             android:id="@+id/addCancel"
@@ -115,7 +117,8 @@
             android:onClick="cancel"
             android:text="@string/cancel"
             android:textAlignment="center"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:background="@drawable/bordered_button"/>
 
     </RelativeLayout>
 

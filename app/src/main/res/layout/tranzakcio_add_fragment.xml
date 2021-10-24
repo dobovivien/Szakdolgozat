@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:screenOrientation="portrait">
 
     <RelativeLayout
         android:id="@+id/frameLayout"
@@ -69,21 +70,20 @@
             android:ems="10"
             android:hint="@string/amount"
             android:inputType="numberDecimal"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textColorHint="@color/gray3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hozzaadTextView" />
 
-        <Button
+        <ImageView
             android:id="@+id/datumButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="70dp"
             android:layout_marginTop="370dp"
-            app:backgroundTint="@color/turkiz1"
-            app:icon="@drawable/ic_calendar"
+            android:src="@drawable/ic_calendar"
             app:layout_constraintBottom_toTopOf="@+id/megjegyzesEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.183"
@@ -99,7 +99,7 @@
             android:layout_marginTop="385dp"
             android:inputType="date"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="24dp"
             app:layout_constraintBottom_toTopOf="@+id/megjegyzesEditText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -117,7 +117,7 @@
             android:ems="10"
             android:hint="@string/comment"
             android:inputType="text"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textColorHint="@color/gray3"
             app:layout_constraintBottom_toTopOf="@+id/tranzakcioAddButton"
             app:layout_constraintEnd_toEndOf="parent"

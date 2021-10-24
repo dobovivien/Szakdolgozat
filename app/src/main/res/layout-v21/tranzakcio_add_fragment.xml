@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:screenOrientation="portrait">
 
     <RelativeLayout
         android:id="@+id/frameLayout"
@@ -36,7 +37,7 @@
             android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="210dp"
-            android:textSize="20dp"/>
+            android:textSize="20dp" />
 
 
         <EditText
@@ -47,7 +48,7 @@
             android:layout_marginTop="290dp"
             android:hint="@string/amount"
             android:inputType="numberDecimal"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textColorHint="@color/gray3"
             android:textSize="20dp" />
 

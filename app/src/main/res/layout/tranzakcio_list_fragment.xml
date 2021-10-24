@@ -8,7 +8,8 @@
     android:layout_height="650dp"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:screenOrientation="portrait">
 
     <TextView
         android:id="@+id/filterTextView"
